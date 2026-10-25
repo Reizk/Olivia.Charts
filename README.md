@@ -46,6 +46,7 @@ dotnet pack src/Olivia.Charts.Avalonia -c Release --no-build -o artifacts/packag
 
 桌面检查需要可用的图形会话。构建输出、截图和测试结果位于被忽略的 `artifacts/`、`bin/`、`obj/` 目录。打包生成本地 NuGet 文件，不会发布到公共包源。GitHub 工作流分别检查 Windows 和 Linux 的构建、自动化测试及打包。
 
+- [Demo 功能简介（中文 / English）](docs/DEMO-OVERVIEW.zh-en.md)
 - [功能与 Demo 覆盖范围](docs/COVERAGE.zh-CN.md)
 - [验证记录与限制](docs/VALIDATION.zh-CN.md)
 - [源码抽取路径与原始校验值](docs/source-map.json)
