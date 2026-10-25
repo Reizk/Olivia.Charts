@@ -1,0 +1,952 @@
+{
+  "product_commit": "4c8d254e99f58c34eeb829f8eb77460af45a7f9e",
+  "extraction_branch": "codex/charts-extract-20261025",
+  "note": "Source hashes at extraction, before standalone cleanup. Namespaces preserved for the initial extraction.",
+  "files": [
+    {
+      "source": "src/Olivia.Avalonia/AreaPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/AreaPlot.cs",
+      "sha256": "1958521271006bab26680c583f61c3d918f7c89d48ff42d9f62edd01c29a298f"
+    },
+    {
+      "source": "src/Olivia.Avalonia/BarPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/BarPlot.cs",
+      "sha256": "964857d3aca64c81518ee4c26b92637d98b3d7ba75d46056777375acb5e86492"
+    },
+    {
+      "source": "src/Olivia.Avalonia/DrawingText.cs",
+      "destination": "src/Olivia.Charts.Avalonia/DrawingText.cs",
+      "sha256": "401f43114f006f56b3cb9ed184f93d01197c988dd9934a109507b8485e3dcd09"
+    },
+    {
+      "source": "src/Olivia.Avalonia/DualAxisHistoryPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/DualAxisHistoryPlot.cs",
+      "sha256": "63f4707fc219d9d278e7ccdd1871f43db782abedd53547bbb3c7da48ffc8a613"
+    },
+    {
+      "source": "src/Olivia.Avalonia/FlowPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/FlowPlot.cs",
+      "sha256": "fa11b973eeebb47f6e9699e0ba4f6dd9d2c76db7884839e072f9775f1f91b276"
+    },
+    {
+      "source": "src/Olivia.Avalonia/HeatmapPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/HeatmapPlot.cs",
+      "sha256": "600c67704af7b95d8c8b892936f6b1b046d24719fcb660f2b6f1ffb6793437a4"
+    },
+    {
+      "source": "src/Olivia.Avalonia/HistoryPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/HistoryPlot.cs",
+      "sha256": "5e03a49124f1d6428c19753e622164bc3565eb9c1ee66009c3f78b2bc576b410"
+    },
+    {
+      "source": "src/Olivia.Avalonia/HistoryRangeNavigator.cs",
+      "destination": "src/Olivia.Charts.Avalonia/HistoryRangeNavigator.cs",
+      "sha256": "d3c06133c67c75349ad6b571352d9b13f51c8efb3a652e8e716d85f2f970f951"
+    },
+    {
+      "source": "src/Olivia.Avalonia/LargeDataPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/LargeDataPlot.cs",
+      "sha256": "a7ba2dc69576e7dd637725ed0577241b3ec73806b4848d1155e4c448cfc84e40"
+    },
+    {
+      "source": "src/Olivia.Avalonia/Point3DPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/Point3DPlot.cs",
+      "sha256": "f2a13a5ff0e028cfad8508fb1bcf4d45eba4e6d94d9238fc95fa3386ec7cbcc1"
+    },
+    {
+      "source": "src/Olivia.Avalonia/PricePlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/PricePlot.cs",
+      "sha256": "6359fac2ac9ed31c6d1f7cf1edecee25e52d007fb433785a0ba178b4bd5276c5"
+    },
+    {
+      "source": "src/Olivia.Avalonia/ProportionPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/ProportionPlot.cs",
+      "sha256": "951ca7d1f41a73fe8d714f3f2033aec265d343508ecd237053930a6f654b1fc6"
+    },
+    {
+      "source": "src/Olivia.Avalonia/RadarPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/RadarPlot.cs",
+      "sha256": "608c34775b076d30d6d9bb0ee78834680e878949a40177a6d1432e61995e49da"
+    },
+    {
+      "source": "src/Olivia.Avalonia/RangePlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/RangePlot.cs",
+      "sha256": "4585c9ec86457c59b03f511da955d1c7d8d7f30b98344a677adb9032cafa4398"
+    },
+    {
+      "source": "src/Olivia.Avalonia/RealtimeSensorPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/RealtimeSensorPlot.cs",
+      "sha256": "60f91809b678a6219fceb40dade09a9e596148a53a86bec5cfc796101acbf6bb"
+    },
+    {
+      "source": "src/Olivia.Avalonia/ScatterPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/ScatterPlot.cs",
+      "sha256": "c09f2248430595e6552ab10671c65fa7522711c1345bb0984a85e1b6b49bb67a"
+    },
+    {
+      "source": "src/Olivia.Avalonia/SplineAreaPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/SplineAreaPlot.cs",
+      "sha256": "96ab8ec4fd9812b22be0ce366e9817ca6f002781a284527feb02513b146e1d3f"
+    },
+    {
+      "source": "src/Olivia.Avalonia/StackedAreaPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/StackedAreaPlot.cs",
+      "sha256": "e370cc0138150f7960bb2c10d2acb73c805e21b2ee846f94cbe1aa12abee3cb7"
+    },
+    {
+      "source": "src/Olivia.Avalonia/SunburstPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/SunburstPlot.cs",
+      "sha256": "dd6a719b0d93820a6dc1b0237fd37d216405847772148c556b712df962199671"
+    },
+    {
+      "source": "src/Olivia.Avalonia/SurfacePlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/SurfacePlot.cs",
+      "sha256": "8159349c1132bc6f47c3f25517d13d204ff37fa8b0ef586d41fcd2ecd3ceccdf"
+    },
+    {
+      "source": "src/Olivia.Avalonia/Themes/OliviaChartTheme.cs",
+      "destination": "src/Olivia.Charts.Avalonia/Themes/OliviaChartTheme.cs",
+      "sha256": "a85c4a0ccec5a965f9e4c71ef5f0f6edfc14bd5c2f3d5dd883199b1d45a89d8d"
+    },
+    {
+      "source": "src/Olivia.Avalonia/Themes/OliviaThemeDefinition.cs",
+      "destination": "src/Olivia.Charts.Avalonia/Themes/OliviaThemeDefinition.cs",
+      "sha256": "2c750d2736b457f70da240ea1d9ecc9c6c402a8b4792ac758a5f20e50acf7f68"
+    },
+    {
+      "source": "src/Olivia.Avalonia/TreemapPlot.cs",
+      "destination": "src/Olivia.Charts.Avalonia/TreemapPlot.cs",
+      "sha256": "784f735a971059510358cbd6fb24d4dc689c481dbfa79b95ba72295aa890cb27"
+    },
+    {
+      "source": "src/Olivia.Avalonia/UiPalette.cs",
+      "destination": "src/Olivia.Charts.Avalonia/UiPalette.cs",
+      "sha256": "d91252fc2a192c256e6df68658801f09d2455920ebc442c4914747836f111562"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/AreaChartPaths.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/AreaChartPaths.cs",
+      "sha256": "c8c332c94137d74b2f9304f613375df5553f3bef1cc4295f15b764b99bdd91ff"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/AreaCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/AreaCharts.cs",
+      "sha256": "13ce3c49ff8b3d7a3ae36ac4ba48e97aa7f3cb722481d814adf1b0e15faa1c8a"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/AreaSplineGeometry.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/AreaSplineGeometry.cs",
+      "sha256": "85f6f2f4c5312843c4d7b359de4e401294f726e20e9356e991fe75a61753d476"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/BarChartStacks.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/BarChartStacks.cs",
+      "sha256": "f20a6519d6d6fc1477d1ccd08b7499a54a7b878f22a83546e69746f2299fa9d0"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/BarCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/BarCharts.cs",
+      "sha256": "009356bb015794a388ebb781c31ee5dd2a41ced783e79038c54a959befe3b85e"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/ChartWorkspace.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/ChartWorkspace.cs",
+      "sha256": "603a8c166d9740104312c1230b48235b80042a77b5fbf27d3ab2f6af99acb988"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/DualAxisChartSnapshot.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/DualAxisChartSnapshot.cs",
+      "sha256": "0100ffc1137d23665f41ad8f845265e2c3be708c53907530104326fdf09c7ae3"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/DualAxisDefinitions.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/DualAxisDefinitions.cs",
+      "sha256": "d929082970d04aef4aa93b4743b9cb510a4cd0671c9916d731ce336618b95d4a"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/DualAxisGeometry.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/DualAxisGeometry.cs",
+      "sha256": "16722dd31287af66b856f04187c25f4cf97ec6e7f7451716478de100e236fe55"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/DualAxisHistorySource.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/DualAxisHistorySource.cs",
+      "sha256": "5c928233e9ae521df423ac3070c09164369cdbb1aef479f418847f404db73f91"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/FlowCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/FlowCharts.cs",
+      "sha256": "671743237ef20329e201983c37bf71d48733fe073e46ed1e718944c6ff2567bf"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/HeatmapCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/HeatmapCharts.cs",
+      "sha256": "f52a6789a434e9bead98fd93aba1b6fb20e7e93ded1c90aa9e2bfc5817be01ec"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/HistoryChartSnapshot.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/HistoryChartSnapshot.cs",
+      "sha256": "7fb8586365f8d29ec87b7e3a72fbdc171edfd3ab8b4e7afb0c2d572796c4e67e"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/HistoryPlotGeometry.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/HistoryPlotGeometry.cs",
+      "sha256": "7348141c23b189fb4294cbea7046b576d9acc25367a2bf599e6f896635a4cd29"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/HistoryQuerySession.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/HistoryQuerySession.cs",
+      "sha256": "e46a6cb3aa7afe8bf2ffcb09b4c859c979f41e2c60099e329cfaeafeb8c7b579"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/HistoryRangeCoordinator.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/HistoryRangeCoordinator.cs",
+      "sha256": "a0bc337ec727498a3268a168ebc543a6e8281dc94378a307bc98506c9bc81c4a"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/HistorySeries.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/HistorySeries.cs",
+      "sha256": "5206c74304f1de28e34874c1ad011d5617edd679c2d7c29325358ce75a6c191e"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/LargeDataChart.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/LargeDataChart.cs",
+      "sha256": "6eaded4c92bbf2c45f98b04212850e6185d8194adfbd4237a58bd5ce94a86bb2"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/LargeDataSeries.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/LargeDataSeries.cs",
+      "sha256": "bddbcb66c08680cc9c1780f725058cd2a890f712aaf790a01fc942cd9a6b2b3b"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/Point3DCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/Point3DCharts.cs",
+      "sha256": "96a126ba3285f1941fb2de324ddf36016a8b66188de04400bd8edab6a6db1f79"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceAggregationCache.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceAggregationCache.cs",
+      "sha256": "8a2a9ac0f2097e26d0949ce3d9904471ef695c35ec1981f26ba2628f82679455"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceBollingerBands.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceBollingerBands.cs",
+      "sha256": "27881a9ec350dfbbc3b228eff1fb19c24bbe24ee79d3e3775b2d2861f5db0d5a"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceCharts.cs",
+      "sha256": "c3996711e40beacbf4b1227548f58948e1d7f25a0414f53fb3a1348839bb7920"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceCommodityChannelIndex.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceCommodityChannelIndex.cs",
+      "sha256": "890e3d85ceba917788e98344817d4835c9d8c2307d29160267aa9579cd64d4ff"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceCrosshair.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceCrosshair.cs",
+      "sha256": "5c03ffc8e7398b79e3285355f34148d1600603ceece887d3c2d06410e7648ba6"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceCurrentClose.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceCurrentClose.cs",
+      "sha256": "6827dbf523cd1f0e92fb8b901892fda9ea415661fdc10fece3d7fa48c1f2df63"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceFibonacciArcs.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceFibonacciArcs.cs",
+      "sha256": "ab7e4fed54bc671bc6cbe21c079647dbf4207a7fba16104bf558f835866a9884"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceFibonacciFans.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceFibonacciFans.cs",
+      "sha256": "743aad29f31ab030331a61bec68a8e7e489c3fa557b8f78857977729a6a01b01"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceFibonacciRetracements.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceFibonacciRetracements.cs",
+      "sha256": "fee6ef5dc4c9c3a7b306d6c1d7cc4a10fb8318b9aeef6b6b3dbf732e96643b02"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceFinancialCsv.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceFinancialCsv.cs",
+      "sha256": "f8bf2fe8cb6b5486929acb5420eadb4126250fbd228eb1fd29ca8e0d16fab281"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceFinancialSideMargins.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceFinancialSideMargins.cs",
+      "sha256": "fd1e0acc07950d63a2c36d3005d1114bf68b889e8d888ae6972b62d7fdb86876"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceFinancialViewport.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceFinancialViewport.cs",
+      "sha256": "978a80f1b6cb503ee03b5861c0d9b36803ee4d7568c5799d76b44556655f98e9"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceImageAnnotations.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceImageAnnotations.cs",
+      "sha256": "9092ce5ab475c5f209a7afcafe7063d691cfa48d3a56112bc30dbdb3be7f2521"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceIndicatorCache.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceIndicatorCache.cs",
+      "sha256": "aca8386addf05069e5b91f098ab24c18bfce1d4092f18eb7644bc575d56d3e62"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceTextAnnotations.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceTextAnnotations.cs",
+      "sha256": "d64ad548095c08ff2d0b8b37c8ba1cd3d3a834d0f56e2413ab1c89adcece46d9"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceTimeAggregation.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceTimeAggregation.cs",
+      "sha256": "9a9bf994e4fda770e70b92deeb2bec23fe93ab8259f3b4fa7b71f35ac046cf1f"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceTimeAxis.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceTimeAxis.cs",
+      "sha256": "19a6876a5807a600c6e3da534d095afceb2ba3bfe0ebf674315bfadbe6ef9a7f"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceTimeViewport.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceTimeViewport.cs",
+      "sha256": "a9b3c78e58d09b7d79166a141cb62f3d378252e2d25e0786352dc6a0b0ef50ca"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceTrendLines.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceTrendLines.cs",
+      "sha256": "0cdf32b88a2b0bf92268ae871666cf102ae815d6fb71458907b4d22809e43129"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceVolumes.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceVolumes.cs",
+      "sha256": "3cd64b038e8eeaab68f5b0a23b39afa311c5292fba647d6c1d810be1e69c64b7"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/PriceWilliamsR.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/PriceWilliamsR.cs",
+      "sha256": "be1170510093b01653713e227ea46f4dc6a856976db630bdf9e80545aeac93a5"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/ProportionCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/ProportionCharts.cs",
+      "sha256": "3b32159378e88150fb4ccf0933937cf4fdbfacea64456d914483e0f9ef8fc6ef"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/RadarCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/RadarCharts.cs",
+      "sha256": "6e6937f0297983a9636d5f083fb33007d892c90f7004f1da415d630d18785d57"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/RangeChartGeometry.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/RangeChartGeometry.cs",
+      "sha256": "3f8bde704b2b0652a46c860efcebd2bf74f917719a6c3e9e88342dcdb6b2d01c"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/RangeChartQuery.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/RangeChartQuery.cs",
+      "sha256": "0516c881e185c38bbb9df5d7534cd008cb3cb5572360cbf200cf69cbdba08493"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/RangeCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/RangeCharts.cs",
+      "sha256": "6720be781500ff50061da98f88544fba218fe2236fd663d8d70980fdb5fa83f8"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/RealtimePriceSession.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/RealtimePriceSession.cs",
+      "sha256": "21ab20075b092011eb1e0d5f623f9eb536de8eb4ae171a51040e72a038217ef4"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/RealtimeSurfaceSession.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/RealtimeSurfaceSession.cs",
+      "sha256": "1a5306fe53a25fb3518bf72801040aaa7e35b921f2d7eeb32d2085698953c3da"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/ScatterCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/ScatterCharts.cs",
+      "sha256": "a3971f12d35750375ddfc42a7161ac10bcfb74c299f0b4ea03ec72e53d5e8d99"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/ScatterLiveExport.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/ScatterLiveExport.cs",
+      "sha256": "b56387c70608caa575e4326a54bc08f159828be5d9c60d30cf792e225edf412d"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/ScatterLiveSession.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/ScatterLiveSession.cs",
+      "sha256": "cf9752fdd890b28551f2f8bcabbe43fbd2171e63394efe63c3c768fc9a0d9a11"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/StackedAreaCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/StackedAreaCharts.cs",
+      "sha256": "9b710f8955315083027f2eb9f90a638024316856f18554a163cfe66f018db965"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/StackedAreaSplineGeometry.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/StackedAreaSplineGeometry.cs",
+      "sha256": "5b155e4f558707ec0a35aea331e494884e1cc1f3e36a8959fa440eb023047f46"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SunburstCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SunburstCharts.cs",
+      "sha256": "61876c2bcf725973ce70c6162629d787b25f931ef1b3ec8f2d8011a59c351062"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceAxisGraduations.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceAxisGraduations.cs",
+      "sha256": "486ce4f8dd8fa674bbb7f8f9769ab929d9ea1f899f5c1285cf5668cc7755e497"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceAxisReference.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceAxisReference.cs",
+      "sha256": "bf260bd9fdc9b79061a33ed8b6dcd3db10ac0d9a6b33849bf54f2825a5fe44d2"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceCameraLayout.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceCameraLayout.cs",
+      "sha256": "c58784ad088790dbe47b10b05402b6418be59e43aaee812fac2037fe7e8e6fc8"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceCharts.cs",
+      "sha256": "baeaec5d6915de41806983e1cda0fdb83e265fa4aafd6c9e73b1863bc03e109b"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceEdgeAntialiaser.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceEdgeAntialiaser.cs",
+      "sha256": "069fa576a465ea59dc522e03deb957903d7b307ffcf99dd0c1712a550dda6879"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceLighting.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceLighting.cs",
+      "sha256": "6ce30e3f4f3863ec27ee426a4f074a99223717730d65928f4708ea8df9f11b07"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceMaterial.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceMaterial.cs",
+      "sha256": "01d70b3784d1cd66f086b9437de44a481a985e61136b90dc6131cec2eaaa4b00"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceRasterizer.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceRasterizer.cs",
+      "sha256": "d461a3817b583222329551776e26d40a1c5892abf1253bfc79cde75ed1ff3340"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/SurfaceRenderingOptions.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/SurfaceRenderingOptions.cs",
+      "sha256": "2959cab67c0fd2d4caf56ded094acecd7cef1284e04ec627cd4f90efdf603ad2"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/TimeWindow.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/TimeWindow.cs",
+      "sha256": "976b50749164a123f70c3607bef081f81bf1259f788d3a167a02cdd9365bef40"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/TreemapCharts.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/TreemapCharts.cs",
+      "sha256": "fc5affec16108a43ec03ed542296ccf44512706ca92237d8c58740425bb5deca"
+    },
+    {
+      "source": "src/Olivia.Core/Charts/TypedChartBinding.cs",
+      "destination": "src/Olivia.Charts.Core/Charts/TypedChartBinding.cs",
+      "sha256": "32af39debd96c762da4eee3f3d57e33550466f732f7a1f795d60fa2e3c02d006"
+    },
+    {
+      "source": "src/Olivia.Core/Display/ValueDisplayFormat.cs",
+      "destination": "src/Olivia.Charts.Core/Display/ValueDisplayFormat.cs",
+      "sha256": "a1402541fbcc80634d7765df0d2c71eed20f6231f4f02973b924b5a63f6f4277"
+    },
+    {
+      "source": "src/Olivia.Core/Editing/ColorContracts.cs",
+      "destination": "src/Olivia.Charts.Core/Editing/ColorContracts.cs",
+      "sha256": "17fdd2ecf3312820c5a272b84e347cc3d8a7c833ecd7c2442a76afac54209d85"
+    },
+    {
+      "source": "src/Olivia.Core/Export/BoundedExportStream.cs",
+      "destination": "src/Olivia.Charts.Core/Export/BoundedExportStream.cs",
+      "sha256": "84a1a6500cce37f42ac8502e409510fd999dce603ed668121201fd455f85cf69"
+    },
+    {
+      "source": "src/Olivia.Core/Export/HistoryExportSnapshot.cs",
+      "destination": "src/Olivia.Charts.Core/Export/HistoryExportSnapshot.cs",
+      "sha256": "80619dce8bdc47ba5f00ff5c9d67c5603e21a8c34d49fd7f2229050aa73b9910"
+    },
+    {
+      "source": "src/Olivia.Core/Export/SnapshotExportHistory.cs",
+      "destination": "src/Olivia.Charts.Core/Export/SnapshotExportHistory.cs",
+      "sha256": "68865216a4496f3d9104270320908ea6030c40ae2eb7ca48b6639c256cdb235f"
+    },
+    {
+      "source": "src/Olivia.Core/Export/SnapshotExportHistoryCsv.cs",
+      "destination": "src/Olivia.Charts.Core/Export/SnapshotExportHistoryCsv.cs",
+      "sha256": "5a9cacf1eb4de1eae20cfc458e6cd40aa705b45d270ad32919c9786a5cdde008"
+    },
+    {
+      "source": "src/Olivia.Core/Export/SnapshotExportHistoryJson.cs",
+      "destination": "src/Olivia.Charts.Core/Export/SnapshotExportHistoryJson.cs",
+      "sha256": "fde96cb7ced6e1a115d5786b453d474f052c941b3c22d33c6ab0dba6fb19c482"
+    },
+    {
+      "source": "src/Olivia.Core/Export/SnapshotExportModels.cs",
+      "destination": "src/Olivia.Charts.Core/Export/SnapshotExportModels.cs",
+      "sha256": "5790f5ba0d74b1c99d82dc14fb1c1be7dee8efb9a33d608da66086e3c3bc6cd4"
+    },
+    {
+      "source": "src/Olivia.Core/Imaging/DeflateStructureValidator.cs",
+      "destination": "src/Olivia.Charts.Core/Imaging/DeflateStructureValidator.cs",
+      "sha256": "7bb7a7852bd8e810c8a1a6af77a85ac52e6d323bf4f0c4e224a7305067161bc3"
+    },
+    {
+      "source": "src/Olivia.Core/Imaging/PngRasterCodec.cs",
+      "destination": "src/Olivia.Charts.Core/Imaging/PngRasterCodec.cs",
+      "sha256": "255f12b2c44340d17b36b7ed636c9bc3e2467de485517d2a541b6086d176b5f4"
+    },
+    {
+      "source": "src/Olivia.Core/Imaging/RasterImage.cs",
+      "destination": "src/Olivia.Charts.Core/Imaging/RasterImage.cs",
+      "sha256": "e76e48f07bb4eaaa4bcf45102afc11a995eb0efe786f7d0e8bbebba58e2b9bd3"
+    },
+    {
+      "source": "src/Olivia.Core/Snapshots/VersionedSnapshotStore.cs",
+      "destination": "src/Olivia.Charts.Core/Snapshots/VersionedSnapshotStore.cs",
+      "sha256": "3e2688cf49155ef4897f49fa3fa976dc72a7e7a88f7ce3e99a964fd6bf6bc173"
+    },
+    {
+      "source": "src/Olivia.Core/Streaming/RetainedRing.cs",
+      "destination": "src/Olivia.Charts.Core/Streaming/RetainedRing.cs",
+      "sha256": "2fd1870cab6a0ecd956bb9da530583657bb3288002864c52e17ff8d68f50c35b"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/RealtimeSensorModels.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/RealtimeSensorModels.cs",
+      "sha256": "2bb5b7f98636b52faf9702edeb448ad007c3d4b6bcb2a58337deefabe9b4f46d"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/RealtimeSensorSampler.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/RealtimeSensorSampler.cs",
+      "sha256": "a798ffd43f238abd88bdb902424e6bec94e33f0d5fba79d63bfb52f4f82b2e00"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/RealtimeSensorSession.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/RealtimeSensorSession.cs",
+      "sha256": "2f6d068783df83b9108b0469b595a2ebbd0dc93925fd00c1605598c1663d4d02"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/RealtimeSensorGenerator.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/RealtimeSensorGenerator.cs",
+      "sha256": "b7094ce2270c4cd166a068bab4ffd81f425d5bd36d141795a4074ecad5c06e65"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/MultiSeriesChartSource.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/MultiSeriesChartSource.cs",
+      "sha256": "c28c62e7c9d70b3bc8983346c3f037265474ed289ab1c0e9bbc9ee3ee2385ab4"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/MultiSeriesChartSession.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/MultiSeriesChartSession.cs",
+      "sha256": "890f78892e4b9f3dcd7aa2ec93f8ca6632524950e8e80f62e053e747697c0483"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/RangeChartSession.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/RangeChartSession.cs",
+      "sha256": "e8b2c0dc07a766ba04aa9b717091fc90afde34a7c36450add5bda813746af60d"
+    },
+    {
+      "source": "src/Olivia.Core/Workspaces/TypedChartBindingSession.cs",
+      "destination": "src/Olivia.Charts.Core/Workspaces/TypedChartBindingSession.cs",
+      "sha256": "924a24b79ef2827db74625e27ec8a7f85e8899b5fd05569f1b4142d14f6574a0"
+    },
+    {
+      "source": "src/Olivia.Core/Streaming/LatestValueMailbox.cs",
+      "destination": "src/Olivia.Charts.Core/Streaming/LatestValueMailbox.cs",
+      "sha256": "e03cdf54109d6fafe992030125e3e7a5b4029ef01d425ce0afefb549dfac8e51"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/AreaChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/AreaChartTests.cs",
+      "sha256": "a8b9fba7a55c4a89ca7c94d2d6f63e2134294608979f7c7799547c7e3175565c"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/BarChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/BarChartTests.cs",
+      "sha256": "819f04766fe6ce822d23f261b225742cb62b3548e1e4418650518d1ae73d3f73"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/ChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/ChartTests.cs",
+      "sha256": "d889d093dbae9307a20486df9decefd644766ae3a0d45fe8de8db1d13f62568c"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/ChartWorkspaceTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/ChartWorkspaceTests.cs",
+      "sha256": "b16dc8503e6a2a8c66ca3dd069b4abdc274a8eaa9a5437dd2d4fb6f02b799ec1"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/DualAxisChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/DualAxisChartTests.cs",
+      "sha256": "ce4ec50a6d973e4bf6274c33951c5602e1fc9bcfc52c5872f6a79a9b517e69a8"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/DualAxisGeometryTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/DualAxisGeometryTests.cs",
+      "sha256": "f6ce4140d7cb3ad26caf4ca6e1b26d742c2f7896e3503f737951a93e37fc20f4"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/FlowChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/FlowChartTests.cs",
+      "sha256": "e11c1bfedbd10d60f98245a380d1e055578c5fdc32c8b44c5aefa895abea66c6"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/HeatmapChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/HeatmapChartTests.cs",
+      "sha256": "1941e8773abafc9428961d9d3192bf62eb79b1d17f149273f11f7d2b88c46aeb"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/HistoryBaselineGeometryTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/HistoryBaselineGeometryTests.cs",
+      "sha256": "93d33e4dc3d7545a4ec18f32b3e2b2e81852107b5211ca62262f31bda49b11e7"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/HistoryQueryLifetimeTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/HistoryQueryLifetimeTests.cs",
+      "sha256": "20bdf35e91407c7ceaacc475123bec8dc0980b9635259f2d5c15294e98d1fe28"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/HistoryRangeCoordinatorTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/HistoryRangeCoordinatorTests.cs",
+      "sha256": "2c7bfe0359dc10b6d2d02a7be036bb65eab06464e49ed7603b8e6190ad6ba95a"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/HistorySnapshotExportTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/HistorySnapshotExportTests.cs",
+      "sha256": "a2f06dedc215a35fd61635f24c604d17b3cb46e376407a01b7268dcdae8b1148"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/KeyedPathChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/KeyedPathChartTests.cs",
+      "sha256": "b13f2890ae402f5f39b1702d7fa21dc132453ad07373f2c1c3618f00d7d9c9ea"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/LargeDataSeriesTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/LargeDataSeriesTests.cs",
+      "sha256": "625b9d4a640789cc0117cd13deff111db8c29afcedf2306c61ce7517cbdcf320"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/MultiSeriesChartSessionTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/MultiSeriesChartSessionTests.cs",
+      "sha256": "7bfe5bc24e2eaa5a40828e7e6e09d55dabf9793fa05c1754d807648d198d5488"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/MultiSeriesChartSourceTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/MultiSeriesChartSourceTests.cs",
+      "sha256": "b70d8bcd654ed4208fdf5113ec8a1587b05b64b999e2821855ff06e2cfb7e152"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/Point3DChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/Point3DChartTests.cs",
+      "sha256": "b39b586716ce2024ddebeef12fc196112b7dc8f9758271b1592139e936ef13dd"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/Point3DReviewTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/Point3DReviewTests.cs",
+      "sha256": "bb7fadccfc011e8daa98f7a998c7abad13c80542171b0845f498a11b02e18d77"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceBollingerBandsTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceBollingerBandsTests.cs",
+      "sha256": "f0f645f16ed95256593b7f1fa3905878cd0e1fc887ba30da8d0615bce53f7fbd"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceChartTests.cs",
+      "sha256": "372907d92f3db2d8da47bc97adf83e1724d158177ebc689f5ec631e14f750021"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceCommodityChannelIndexTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceCommodityChannelIndexTests.cs",
+      "sha256": "50f5380ff4ff176b688f48a45ef272eed05b74e39c95525c83ff74684cc557ba"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceCrosshairTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceCrosshairTests.cs",
+      "sha256": "5310980ec543a4e377795a6a32e67bcdbab3896f944f553c7a89742e631f5cb7"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceCurrentCloseTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceCurrentCloseTests.cs",
+      "sha256": "3aa897a1dccf190e5432ea8f57902f2097da3c050e935322237720c7c93cca17"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceFibonacciArcTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceFibonacciArcTests.cs",
+      "sha256": "1de7ff2b8def1d44d45665e5566cbb522ab31642b3dec64302b2e0d1817fd526"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceFibonacciFanTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceFibonacciFanTests.cs",
+      "sha256": "7d756c1458e93a0fe93d103a963a24a13941d214867d64633a09f7768b9a73fe"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceFibonacciRetracementTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceFibonacciRetracementTests.cs",
+      "sha256": "7cfbe3dbb935ff793bbadd5080c7086d1b09678bc681a4e92fc34c2c7bd09ae6"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceFinancialSideMarginTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceFinancialSideMarginTests.cs",
+      "sha256": "24cb7615ea107cd93e084269948098659156ad66ab2cbb77726d5ea7b4260cad"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceFinancialViewportTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceFinancialViewportTests.cs",
+      "sha256": "6966649daf1bd5cc43532628c22af3a31df274f1fc5a4d8d27704cf6831a6b99"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceImageAnnotationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceImageAnnotationTests.cs",
+      "sha256": "5d3d72f2350cafe62f710077fb4f744e0f430723655da74ae0f7f25f36d8067b"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceScaleTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceScaleTests.cs",
+      "sha256": "df6ceef01576fe1bcbef0280bc3c45861c37f31da5bf44945bfea964ea96f7bc"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceTextAnnotationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceTextAnnotationTests.cs",
+      "sha256": "f9c7ab400d69a2ec7e069d76e7f1b2e78feac365a660123b05aa1acec1662c7c"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceTimeAggregationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceTimeAggregationTests.cs",
+      "sha256": "6052465254939cd53082b78a324cddcdf1003cafb8040e04a05058236c91e845"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceTimeAxisTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceTimeAxisTests.cs",
+      "sha256": "54f078fa649d8db1426f51bafe98cfcb7c81f74af8733d4590413b47baf09622"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceTimeProjectionTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceTimeProjectionTests.cs",
+      "sha256": "dc92d6ba43bcb1e277fb752ca9430a21f9ca4583b23ac9622bab279ded792873"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceTrendLineTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceTrendLineTests.cs",
+      "sha256": "9611c904bc62c384b749ee4e4cab7b30425ab5a451ee19bb3ced40c0e7a2df87"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceVolumeTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceVolumeTests.cs",
+      "sha256": "3cf0ea225ffbf19b33cd585357a06e0e44af141689318ed29880737d847ea9f1"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/PriceWilliamsRTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/PriceWilliamsRTests.cs",
+      "sha256": "12c91a2b1694fb84c09363deba769de5f5547df00775c8083f43ef0b3ee02aee"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/ProportionChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/ProportionChartTests.cs",
+      "sha256": "5fa6b42f4e7772422ce08683ca5e8dd2ec3563ff3c3990beaad55712683e0467"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/RadarChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/RadarChartTests.cs",
+      "sha256": "7ea24e025dd13074dcbbfcf40e58e6eb5ea3dc1a2ebf62292e8a423ea673e0b9"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/RangeChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/RangeChartTests.cs",
+      "sha256": "89d36489dce350bfd891319ad593b714f6cad74b18bf0cc3b04fc81a4db758e3"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/RealtimePriceSessionTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/RealtimePriceSessionTests.cs",
+      "sha256": "a7c48e7f69cc82844421cc4e0088dfa53416e8742dc1d10d43fcd7ee084edee7"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/RealtimeSensorAllocationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/RealtimeSensorAllocationTests.cs",
+      "sha256": "4a7e311ea8c750478bafffc79768ddaef827f7c5dd0c73098fe44d9ad737b05f"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/RealtimeSensorTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/RealtimeSensorTests.cs",
+      "sha256": "cb51c7459e68869d1be4165e0ee77374e47ebff6e345cfef985d9df3be179890"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/ScatterChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/ScatterChartTests.cs",
+      "sha256": "5d952ab1492fe3be1a763947ae8dc0c52bc68a1e5ba94e0a6214774541219b4a"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/ScatterLiveTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/ScatterLiveTests.cs",
+      "sha256": "b881a72c24f87f1debad1b90d036889db09248895780024a2694357793ca0874"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SparklineTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SparklineTests.cs",
+      "sha256": "78c97030668e763321d874db85dc0bdfffcb3d5570fa6f4a42bc1857f8c66156"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SplineAreaChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SplineAreaChartTests.cs",
+      "sha256": "115383e24e492c3175ec2037fadf5595dd1d2eac47b060ab0565a70e5143b935"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/StackedAreaChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/StackedAreaChartTests.cs",
+      "sha256": "fd7c733f3192233bcd3c655be3a8ca7b07572281c7aac70defec3252d0c19355"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/StackedBarChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/StackedBarChartTests.cs",
+      "sha256": "429de384b78cb93fb27906d109a87be681fd8de15b69fc41cac522eee45e3aac"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/StackedSplineAreaChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/StackedSplineAreaChartTests.cs",
+      "sha256": "716b11632f224e83205c94e23853abd0a0c19c6040ca5f8cfd02b11b89f89540"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/StackedStepAreaChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/StackedStepAreaChartTests.cs",
+      "sha256": "b4496d29324977978185094312ffa0df0c9b9675672a361f4bc37b9541b6c94e"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SunburstChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SunburstChartTests.cs",
+      "sha256": "e62c0006628dccee107964c5e0058d089f91fa20e0d653f47515ac8840432118"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SunburstReviewTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SunburstReviewTests.cs",
+      "sha256": "a21e1c4aa24edddce7794ea8494fea02c97920034689e1ddcd53a143a7a23e5a"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceAllocationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceAllocationTests.cs",
+      "sha256": "e2152a08ca91450c7ab496fa7b672a5b86c644de6246bceb29bebaaa41c4eb2d"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceAxisGraduationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceAxisGraduationTests.cs",
+      "sha256": "accd3f4aeda961c57afccf4d8ec1d277d7b10cf028cc91648c1c0d9646c568de"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceAxisReferenceTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceAxisReferenceTests.cs",
+      "sha256": "3d7b9a49d2bd9785b8c377d4f233deaae2c33a2b1d838dcb5dcb1c84859ab9d7"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceDataTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceDataTests.cs",
+      "sha256": "5e0bd635a91d5994e79ea15cfacd1e234e508e3ad458d41f794dd8e13762141d"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceFinishTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceFinishTests.cs",
+      "sha256": "9c71970807cd1e2836adaa9fc32646544f297af2f250502ef82fb2788893ec04"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceMaterialTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceMaterialTests.cs",
+      "sha256": "2a09625c9bb33092ed4f724efa1fa320d95a06dc8c1c2e405085f188436dde7e"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfacePerspectiveTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfacePerspectiveTests.cs",
+      "sha256": "957fa117beb2985538cbaaa283e6b68d4f8b4671c2e5cfd73f965e361ac11e85"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceProjectionTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceProjectionTests.cs",
+      "sha256": "7ba844e749db6cd69d62f1164d503abcc24c919504cdd5bef5b8042adfac2093"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceRasterTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceRasterTests.cs",
+      "sha256": "6f9ea75c330eed50f18867f30ee0a462bfc722cc567a6410114ac6fa550d9e6a"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceReferenceCalibrationTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceReferenceCalibrationTests.cs",
+      "sha256": "8140e22ee5e300f8a437f712e68983b44a5e8fbe8009649d8f856b9e769f9488"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/SurfaceShortRunTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/SurfaceShortRunTests.cs",
+      "sha256": "3f769a36b9cda2d46f81b8ea2b5688c44c328574a3fd7127f30c693550100c12"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/TreemapChartTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/TreemapChartTests.cs",
+      "sha256": "ac7a2ae9ec5f43312e5f3fff5969027fc7af91e5bc5922c6e5e49a98b401fe44"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/TreemapReviewTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/TreemapReviewTests.cs",
+      "sha256": "75d2584462133a18491ee3142e90ea448adbac1eab0ef3fef212826943ce05f5"
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/TypedChartBindingTests.cs",
+      "destination": "tests/Olivia.Charts.Core.Tests/TypedChartBindingTests.cs",
+      "sha256": "cf635c043e80d12ab18a582f8249bb36428f332905091387ce349f31e1bcc655"
+    },
+    {
+      "source": "src/Olivia.Core/Editing/SparklineSnapshot.cs",
+      "destination": "src/Olivia.Charts.Core/Editing/SparklineSnapshot.cs",
+      "sha256": "e8aa84cfdce4d7baf946cef88adc7c5092adf1d7c68a068295e7beedb899b5a0"
+    },
+    {
+      "source": "src/Olivia.Core/Editing/SparklineSession.cs",
+      "destination": "src/Olivia.Charts.Core/Editing/SparklineSession.cs",
+      "sha256": "50ff834b465fc8d1352ac8fa390f1eabcd32fb2a59a897319fe284788fb7fc6b"
+    },
+    {
+      "source": "src/Olivia.Avalonia/Editing/SparklinePreview.cs",
+      "destination": "src/Olivia.Charts.Avalonia/Editing/SparklinePreview.cs",
+      "sha256": "6d88e04643e622e7775fbb23860fbecab133c3463d86d1b53e68e26d9c895c77"
+    },
+    {
+      "source": "tests/Olivia.Headless.Tests/DualAxisPlotTests.cs",
+      "destination": "tests/Olivia.Charts.Headless.Tests/DualAxisPlotTests.cs",
+      "sha256": "78ec1e38be5cf1ecc31d873c41893f5a85897973dab8977c562730f9ff57cf06"
+    },
+    {
+      "source": "tests/Olivia.Headless.Tests/FlowChartReviewTests.cs",
+      "destination": "tests/Olivia.Charts.Headless.Tests/FlowChartReviewTests.cs",
+      "sha256": "99e372be207afbb9b869ee3abaf9f8e093ce6bcb3b6823d00b66fe351ce949d8"
+    },
+    {
+      "source": "tests/Olivia.Headless.Tests/HistoryPlotTests.cs",
+      "destination": "tests/Olivia.Charts.Headless.Tests/HistoryPlotTests.cs",
+      "sha256": "fec9edb6edee50a4312e90c1efd77210e492199d19c1108cc5f506986b6c8d40"
+    },
+    {
+      "source": "tests/Olivia.Headless.Tests/PriceFinancialSideMarginRegressionTests.cs",
+      "destination": "tests/Olivia.Charts.Headless.Tests/PriceFinancialSideMarginRegressionTests.cs",
+      "sha256": "2359d2b0aaea70ab9267f1029e9b5f4ad1c1301cf5c577c667eecd2c9ce86016"
+    },
+    {
+      "source": "tests/Olivia.Headless.Tests/PriceTimeProjectionRegressionTests.cs",
+      "destination": "tests/Olivia.Charts.Headless.Tests/PriceTimeProjectionRegressionTests.cs",
+      "sha256": "4994f37667e46901d89ec3b08bdf09778c044410cc307e4e678eb0e547f223af"
+    }
+  ],
+  "exclusions": [
+    {
+      "source": "tests/Olivia.Core.Tests/FlowLayoutTests.cs",
+      "reason": "General UI flow layout, not chart flow graph."
+    },
+    {
+      "source": "tests/Olivia.Core.Tests/RealtimeStockSessionTests.cs",
+      "reason": "Stock table/grid, not price chart."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="../Olivia.Charts.Core/Olivia.Charts.Core.csproj" />
+    <PackageReference Include="Avalonia" />
+  </ItemGroup>
+</Project>

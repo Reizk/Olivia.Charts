@@ -1,0 +1,27 @@
+name: Charts
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+      - run: dotnet restore Olivia.Charts.sln --locked-mode
+      - run: dotnet build Olivia.Charts.sln -c Release --no-restore
+      - run: dotnet test Olivia.Charts.sln -c Release --no-build --logger trx --results-directory artifacts/tests
+      - run: dotnet pack src/Olivia.Charts.Core -c Release --no-build -o artifacts/packages
+      - run: dotnet pack src/Olivia.Charts.Avalonia -c Release --no-build -o artifacts/packages
+      - run: dotnet restore eng/package-smoke --configfile eng/package-smoke/NuGet.Config --packages artifacts/package-cache
+      - run: dotnet run --project eng/package-smoke -c Release --no-restore
