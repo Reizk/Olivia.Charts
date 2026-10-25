@@ -1,5 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup><OutputType>WinExe</OutputType><IsPackable>false</IsPackable></PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <IsPackable>false</IsPackable>
+    <ApplicationIcon>Assets/chart-icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup><AvaloniaResource Include="Assets/chart-icon.png" /></ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Olivia.Charts.Avalonia/Olivia.Charts.Avalonia.csproj" />
     <PackageReference Include="Avalonia.Desktop" />

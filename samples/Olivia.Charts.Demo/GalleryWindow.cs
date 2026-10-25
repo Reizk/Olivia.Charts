@@ -3,6 +3,8 @@ using Avalonia.Controls;
 using Avalonia.Layout;
 using Avalonia.Markup.Xaml.Styling;
 using Avalonia.Media;
+using Avalonia.Media.Imaging;
+using Avalonia.Platform;
 using Avalonia.Styling;
 using Avalonia.Threading;
 using Olivia.Avalonia;
@@ -11,6 +13,7 @@ namespace Olivia.Charts.Demo;
 
 public sealed class GalleryWindow : Window
 {
+    private readonly Bitmap _brandMark;
     private readonly Grid _root = new() { ColumnDefinitions = new("216,*"), RowDefinitions = new("74,*") };
     private readonly Grid _workspace = new() { ColumnDefinitions = new("*,252"), ColumnSpacing = 20 };
     private readonly StackPanel _navigation = new() { Spacing = 3 };
@@ -49,12 +52,16 @@ public sealed class GalleryWindow : Window
     public GalleryWindow()
     {
         Title = "Olivia Charts · 图表工作台";
+        var iconUri = new Uri("avares://Olivia.Charts.Demo/Assets/chart-icon.png");
+        using (var stream = AssetLoader.Open(iconUri)) Icon = new WindowIcon(stream);
+        using (var stream = AssetLoader.Open(iconUri)) _brandMark = new Bitmap(stream);
+        Closed += (_, _) => _brandMark.Dispose();
         Width = 1440; Height = 920; MinWidth = 1000; MinHeight = 740;
         FontFamily = new("Inter, Microsoft YaHei UI, Noto Sans CJK SC, sans-serif");
         Styles.Add(new StyleInclude(new Uri("avares://Olivia.Charts.Demo/")) { Source = new("avares://Olivia.Charts.Demo/GalleryStyles.axaml") });
         var top = new Grid { ColumnDefinitions = new("*,Auto"), Margin = new(24, 0), VerticalAlignment = VerticalAlignment.Center };
-        var logo = new Border { Width = 36, Height = 36, Background = Brush("#3268E8"), CornerRadius = new(10),
-            Child = new PathIcon { Width = 22, Height = 22, Foreground = Brushes.White, Data = Geometry.Parse("M1,18 L1,20 L22,20 L22,18 Z M3,14 L3,16 L5,16 L10,8 L14,12 L22,3 L20,1 L14,8 L10,4 Z") } };
+        var logo = new Image { Name = "DemoLogo", Width = 42, Height = 42, Source = _brandMark };
+        RenderOptions.SetBitmapInterpolationMode(logo, BitmapInterpolationMode.HighQuality);
         top.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12, Children = { logo,
             new StackPanel { VerticalAlignment = VerticalAlignment.Center, Spacing = 2, Children = {
                 new TextBlock { Text = "Olivia Charts", FontSize = 18, FontWeight = FontWeight.SemiBold },
@@ -162,7 +169,7 @@ public sealed class GalleryWindow : Window
     }
     private static string ExampleIconPath(string id) => id switch
     {
-        "bars" or "binding" => "M1,12 L5,12 L5,22 L1,22 Z M9,3 L13,3 L13,22 L9,22 Z M17,8 L21,8 L21,22 L17,22 Z",
+        "bars" => "M1,12 L5,12 L5,22 L1,22 Z M9,3 L13,3 L13,22 L9,22 Z M17,8 L21,8 L21,22 L17,22 Z",
         "proportion" or "sunburst" => "M11,1 A10,10 0 1 0 21,11 L11,11 Z M14,1 L14,8 L21,8 A10,10 0 0 0 14,1 Z",
         "heatmap" or "treemap" => "M1,1 L10,1 L10,10 L1,10 Z M13,1 L22,1 L22,10 L13,10 Z M1,13 L10,13 L10,22 L1,22 Z M13,13 L22,13 L22,22 L13,22 Z",
         _ => "M1,17 L3,19 L8,10 L13,15 L22,4 L20,2 L13,11 L8,6 Z"

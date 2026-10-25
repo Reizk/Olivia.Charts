@@ -66,10 +66,11 @@ public sealed class GalleryTests
     [Fact]
     public void Catalog_search_has_stable_ids_and_no_unrelated_modules()
     {
-        Assert.Equal(27, ExampleCatalog.All.Count);
-        Assert.Equal(27, ExampleCatalog.All.Select(e => e.Id).Distinct().Count());
+        Assert.Equal(25, ExampleCatalog.All.Count);
+        Assert.Equal(25, ExampleCatalog.All.Select(e => e.Id).Distinct().Count());
         Assert.Contains(ExampleCatalog.All, e => e.Id == "line" && e.Group == "基础图表");
-        Assert.DoesNotContain(ExampleCatalog.All, e => e.Id == "point3d");
+        Assert.DoesNotContain(ExampleCatalog.All, e => e.Id is "point3d" or "binding" or "workspace");
+        Assert.Empty(ExampleCatalog.Search("", "数据与配置"));
         Assert.Single(ExampleCatalog.Search("金融图表"));
         Assert.Equal("heatmap", Assert.Single(ExampleCatalog.Search("heatmap")).Id);
         Assert.Empty(ExampleCatalog.Search("不存在的图表"));

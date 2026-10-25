@@ -41,9 +41,7 @@ public static class ExampleCatalog
         E("sensors", "八路实时传感器", "实时与大数据", "四个面板同步查看八路信号，可暂停与继续。", "8 路信号 · 有界保留", Sensors),
         E("scatter-live", "实时散点", "实时与大数据", "观察两组点随时间移动，暂停后仔细检查。", "120 个点 · 确定性动画", () => Scatter(true)),
         E("large-data", "百万点曲线", "实时与大数据", "缩放查看细节，显示按视口准备的曲线。", "2 条曲线 · 共 200 万点", LargeData),
-        E("surface", "实时三维曲面", "三维图表", "观察连续曲面变化，切换底面投影与图例。", "41 × 41 网格 · CPU 渲染", Surface),
-        E("binding", "字段聚合", "数据与配置", "切换聚合规则，比较原始记录在图表中的结果。", "72 条原创业务记录", Binding),
-        E("workspace", "散点配置", "数据与配置", "使用可调的点预算观察数据准入与显示状态。", "120 个原始点 · 显式预算", () => Scatter(false, true))
+        E("surface", "实时三维曲面", "三维图表", "观察连续曲面变化，切换底面投影与图例。", "41 × 41 网格 · CPU 渲染", Surface)
     ];
 
     private static ChartExample E(string id, string title, string group, string description, string note, Func<ChartScene> factory) =>
@@ -145,7 +143,7 @@ public static class ExampleCatalog
         scene.Options.Add(Toggle("显示数值标签", false, v => chart.ShowLabels = v));
         return scene;
     }
-    private static ChartScene Scatter(bool live, bool workspace = false)
+    private static ChartScene Scatter(bool live)
     {
         var chart = new ScatterPlot(); long revision = 0;
         void Update() => chart.SetSource(new(Enumerable.Range(0, 2).Select(s => new ScatterSeries("s" + s,
@@ -154,7 +152,6 @@ public static class ExampleCatalog
         Update();
         var scene = Scene(chart, p => chart.Palette = p, () => chart.AccessibleSummary, chart.ReleaseSource, chart.ResetView, live ? Update : null);
         scene.Options.Add(ActionButton("放大", () => chart.Zoom(1.5)));
-        if (workspace) scene.Options.Add(Choice("点预算", ["128", "64（不足时明确提示）", "256"], i => chart.SetOptions(new(new[] { 128, 64, 256 }[i]))));
         return scene;
     }
     private static ChartScene Proportion()
@@ -371,20 +368,6 @@ public static class ExampleCatalog
         };
         scene.Options.Add(Toggle("显示底面投影", chart.ShowProjection, v => chart.ShowProjection = v));
         scene.Options.Add(Toggle("显示图例", chart.ShowLegend, v => chart.ShowLegend = v));
-        return scene;
-    }
-    private static ChartScene Binding()
-    {
-        var chart = new BarPlot();
-        var source = new TypedChartBindingSource(Enumerable.Range(0, 72).Select(i => new ChartBindingRow(i,
-            new("c" + i % 3, new[] { "North", "Central", "South" }[i % 3]),
-            new("p" + i % 4, new[] { "Desktop", "Cloud", "Mobile", "Tools" }[i % 4]), i % 12 + 1, 100 + i * 7, 200 + i * 13)));
-        var function = ChartBindingFunction.Sum;
-        void Apply() => chart.SetSource(TypedChartBinding.Build(source, ChartBindingRequest.Default with { Function = function }).Bars);
-        Apply();
-        var scene = Scene(chart, p => chart.Palette = p, () => chart.AccessibleSummary, chart.ReleaseSource, chart.ResetView);
-        var functions = Enum.GetValues<ChartBindingFunction>();
-        scene.Options.Add(Choice("聚合规则", ["求和", "平均值", "最小值", "最大值"], i => { function = functions[i]; Apply(); }));
         return scene;
     }
 }
