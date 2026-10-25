@@ -1,54 +1,68 @@
-# Olivia Charts
+<p align="center">
+  <img src="samples/Olivia.Charts.Demo/Assets/chart-icon.png" width="88" height="88" alt="Olivia Charts logo">
+</p>
 
-独立的 .NET 8 图表计算库、Avalonia 控件和图表示例程序。当前版本为 **0.1.0-alpha.3**，在私有仓库中开发。
+<h1 align="center">Olivia Charts</h1>
 
-## 运行示例
+<p align="center">Interactive charts for .NET and Avalonia.</p>
 
-安装 .NET 10 SDK 和 .NET 8 Runtime，然后在仓库根目录运行：
+<p align="center">
+  <strong>English</strong> · <a href="README.zh-CN.md">简体中文</a><br>
+  <a href="#chart-gallery">Chart gallery</a> · <a href="#run-the-demo">Run the demo</a> · <a href="docs/DEVELOPMENT.md">Developer guide</a>
+</p>
+
+Olivia Charts brings everyday charts, time series, financial analysis, and live signals into an interactive desktop experience. Explore **24 examples across 5 categories**, switch between light and dark themes, and adjust each chart's available settings in the demo workbench.
+
+**Development preview** · `0.1.0-alpha.3` · .NET 8 · Avalonia
+
+![Olivia Charts workbench showing smooth curves in the light theme](docs/images/demo-line-light.png)
+
+## Highlights
+
+- **Explore your data.** Zoom around the pointer and drag through bar and scatter charts. Navigate time series with a range overview or compare measurements on separate axes.
+- **Follow live signals.** View eight sensor channels across four panels. Pause updates, browse history while collection continues, and return to the live view.
+- **Inspect financial series.** Work with candlesticks, time intervals, volume, Bollinger Bands, CCI, Williams %R, and trend or Fibonacci drawing tools.
+- **Look closer at large datasets.** Explore two curves with one million samples each, with data prepared for the visible range.
+- **Make the view your own.** Switch themes, show or hide settings, and adjust chart options such as line connections, markers, grids, and series visibility.
+
+## Chart gallery
+
+| Category | Included examples |
+| --- | --- |
+| **Basic charts · 6** | Line, grouped bar, scatter, doughnut and pie, radar, sparkline |
+| **Area and range · 6** | Area, curved and stepped area, stacked area, stacked spline area, stacked step area, range |
+| **Hierarchy and relationships · 4** | Heatmap, treemap, sunburst, flow |
+| **Time and finance · 5** | Historical curve, time range navigator, dual-axis, multi-series, financial |
+| **Live and large data · 3** | Eight-channel sensors, live scatter, million-point curves |
+
+| Live sensors · Dark theme | Financial charts · Light theme |
+| :---: | :---: |
+| [![Eight live sensor channels across four panels](docs/images/demo-sensors-dark.png)](docs/images/demo-sensors-dark.png) | [![Candlesticks with volume, Bollinger Bands, and drawing controls](docs/images/demo-financial-light.png)](docs/images/demo-financial-light.png) |
+
+All screenshots are from the demo. Sample data is generated locally; the demo runs without a data service.
+
+## Run the demo
+
+Install the **.NET 10 SDK** and **.NET 8 Runtime**, then run:
 
 ```sh
+git clone https://github.com/Reizk/Olivia.Charts.git
+cd Olivia.Charts
 dotnet restore Olivia.Charts.sln --locked-mode
 dotnet build Olivia.Charts.sln -c Release --no-restore
 dotnet run --project samples/Olivia.Charts.Demo -c Release --no-build
 ```
 
-所有项目面向 `net8.0`。`global.json` 允许使用更高版本 SDK（包括预览版），方便现有开发环境构建；持续集成使用稳定版 .NET 10 SDK。本次 Windows 本地验证使用 .NET 11 预览 SDK、.NET 8 Runtime。
+Choose an example from the sidebar and open its settings to explore the available options. The demo interface is currently in Chinese; the [bilingual demo guide](docs/DEMO-OVERVIEW.zh-en.md) explains the controls.
 
-Demo 以图表工作台组织 24 个示例：基础曲线与统计、面积和堆叠、层级与流向、历史与金融、实时数据和百万点数据。支持分类、搜索、明暗主题、可收起的参数面板，以及按示例提供的暂停和重置操作。基础曲线支持平滑、折线、阶梯三种连接；三维图表及“数据与配置”分类已从 Demo 移除。八路传感器缩放保持实时跟随，拖动进入历史视图后可点击“回到实时”或按 Home 恢复。数据由代码生成，不使用原产品的行情 CSV、业务资料或其他模块。Demo 使用墨绿主色与米金点缀，顶栏、窗口和 Windows 程序统一采用用户提供的 O 形柱状图标，素材见 [Demo 图标](samples/Olivia.Charts.Demo/Assets/README.md)。
+The preview is currently built from source. Public NuGet packages are not available yet.
 
-柱形图和散点图支持围绕鼠标位置滚轮缩放；放大后按住左键拖动，分别查看左右类别或上下左右的散点。右侧提供放大、缩小按钮，工具栏“重置视图”或 Home 恢复全图。实时散点更新时保留当前视口，拖动可以继续。
+## Documentation
 
-三维图表暂不在 Demo 导航、分类和搜索中显示；图表库中的曲面和三维散点 API 保留。
+- [Demo features and controls](docs/DEMO-OVERVIEW.zh-en.md) — Chinese and English.
+- [Developer guide](docs/DEVELOPMENT.md) — project structure, tests, and local packages.
+- [Detailed feature coverage](docs/COVERAGE.zh-CN.md) — Chinese.
 
-## 项目边界
+## License
 
-| 项目 | 用途 |
-| --- | --- |
-| `src/Olivia.Charts.Core` | 图表模型、几何、聚合、流式会话、图表导出与配置 |
-| `src/Olivia.Charts.Avalonia` | Avalonia 绘图控件及最小主题依赖 |
-| `samples/Olivia.Charts.Demo` | 新图表演示程序 |
-| `tests/Olivia.Charts.Core.Tests` | 计算、边界、流式行为回归 |
-| `tests/Olivia.Charts.Headless.Tests` | 控件、页面参数、主题和生命周期检查 |
-| `tests/Olivia.Charts.DesktopSmoke` | 原生桌面启动、逐页渲染与截图检查 |
-
-Core 没有第三方包依赖。Avalonia 库仅依赖 Core 和 Avalonia；仓库不引用原产品的 Grid、Documents、PDF、SQLite 或旧 Demo 项目。
-
-这一版保留 `Olivia.Core.*` 和 `Olivia.Avalonia.*` 源码命名空间，包和程序集改为 `Olivia.Charts.Core`、`Olivia.Charts.Avalonia`。**不能在同一应用中同时引用原 Olivia.Core/Olivia.Avalonia 和新包中的重叠类型。** Azure 主项目接入新包时还需替换旧图表实现；本次保留 Azure 原模块，未进行主产品集成切换。
-
-## 测试与打包
-
-```sh
-dotnet test Olivia.Charts.sln -c Release --no-build
-dotnet run --project tests/Olivia.Charts.DesktopSmoke -c Release --no-build -- artifacts/desktop
-dotnet pack src/Olivia.Charts.Core -c Release --no-build -o artifacts/packages
-dotnet pack src/Olivia.Charts.Avalonia -c Release --no-build -o artifacts/packages
-```
-
-桌面检查需要可用的图形会话。构建输出、截图和测试结果位于被忽略的 `artifacts/`、`bin/`、`obj/` 目录。打包生成本地 NuGet 文件，不会发布到公共包源。GitHub 工作流分别检查 Windows 和 Linux 的构建、自动化测试及打包。
-
-- [Demo 功能简介（中文 / English）](docs/DEMO-OVERVIEW.zh-en.md)
-- [功能与 Demo 覆盖范围](docs/COVERAGE.zh-CN.md)
-- [验证记录与限制](docs/VALIDATION.zh-CN.md)
-- [源码抽取路径与原始校验值](docs/source-map.json)
-
-GitHub 使用仅含图表源码的新历史，不携带原产品的 Git 历史。当前未授予公共开源许可证；对外开放前需单独确定授权范围和许可证。
+An open-source license has not yet been assigned to this preview.
