@@ -68,6 +68,8 @@ public sealed class GalleryTests
     {
         Assert.Equal(27, ExampleCatalog.All.Count);
         Assert.Equal(27, ExampleCatalog.All.Select(e => e.Id).Distinct().Count());
+        Assert.Contains(ExampleCatalog.All, e => e.Id == "line" && e.Group == "基础图表");
+        Assert.DoesNotContain(ExampleCatalog.All, e => e.Id == "point3d");
         Assert.Single(ExampleCatalog.Search("金融图表"));
         Assert.Equal("heatmap", Assert.Single(ExampleCatalog.Search("heatmap")).Id);
         Assert.Empty(ExampleCatalog.Search("不存在的图表"));

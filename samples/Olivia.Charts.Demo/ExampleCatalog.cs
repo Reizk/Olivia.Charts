@@ -17,6 +17,7 @@ public static class ExampleCatalog
     private static readonly DateTimeOffset Epoch = new(2026, 1, 1, 0, 0, 0, TimeSpan.Zero);
     public static IReadOnlyList<ChartExample> All { get; } =
     [
+        E("line", "曲线图", "基础图表", "比较两组数据的变化趋势，切换平滑曲线、折线与阶梯线。", "2 个系列 · 14 个时段", Lines),
         E("bars", "分组柱状图", "基础图表", "比较不同月份的三组数据，切换排列方式。", "3 个系列 · 12 个月", Bars),
         E("scatter", "散点图", "基础图表", "查看两组观测值的分布，缩放后选取原始点。", "2 个系列 · 120 个点", () => Scatter(false)),
         E("proportion", "环形与饼图", "基础图表", "按原始数值展示比例，每个分类都可以选择。", "6 个分类 · 原始权重", Proportion),
@@ -40,7 +41,6 @@ public static class ExampleCatalog
         E("sensors", "八路实时传感器", "实时与大数据", "四个面板同步查看八路信号，可暂停与继续。", "8 路信号 · 有界保留", Sensors),
         E("scatter-live", "实时散点", "实时与大数据", "观察两组点随时间移动，暂停后仔细检查。", "120 个点 · 确定性动画", () => Scatter(true)),
         E("large-data", "百万点曲线", "实时与大数据", "缩放查看细节，显示按视口准备的曲线。", "2 条曲线 · 共 200 万点", LargeData),
-        E("point3d", "三维散点", "三维图表", "旋转与缩放相机，从不同方向观察空间分布。", "480 个空间点", Point3D),
         E("surface", "实时三维曲面", "三维图表", "观察连续曲面变化，切换底面投影与图例。", "41 × 41 网格 · CPU 渲染", Surface),
         E("binding", "字段聚合", "数据与配置", "切换聚合规则，比较原始记录在图表中的结果。", "72 条原创业务记录", Binding),
         E("workspace", "散点配置", "数据与配置", "使用可调的点预算观察数据准入与显示状态。", "120 个原始点 · 显式预算", () => Scatter(false, true))
@@ -79,12 +79,28 @@ public static class ExampleCatalog
     private static Control ActionButton(string label, Action action)
     {
         var input = new Button { Content = label, HorizontalAlignment = HorizontalAlignment.Stretch };
+        input.Classes.Add("action");
         input.Click += (_, _) => action();
         return input;
     }
     private static AreaSeries[] AreaSeries(int count = 24) => Enumerable.Range(0, 3).Select(s => new AreaSeries(
         "series-" + s, new[] { "North", "Central", "South" }[s], Enumerable.Range(0, count).Select(i =>
             new AreaSample(s * 100 + i, i + 1, 24 + s * 12 + 10 * Math.Sin(i * .34 + s))), s + 1)).ToArray();
+
+    private static ChartScene Lines()
+    {
+        var chart = new LinePlot { ValueAxisTitle = "利用率（%）", ArgumentAxisTitle = "时间（天）" };
+        chart.SetSource(new(Enumerable.Range(0, 2).Select(s => new AreaSeries("line" + s,
+            s == 0 ? "生产线 A" : "生产线 B", Enumerable.Range(0, 14).Select(i =>
+                new AreaSample(s * 100 + i, i + 1, 48 + s * 16 + i * .7 + 12 * Math.Sin(i * .55 + s))), 1)), 1));
+        var scene = Scene(chart, p => chart.Palette = p, () => chart.AccessibleSummary, chart.ReleaseSource, chart.ResetView);
+        scene.Options.Add(Choice("连接方式", ["平滑曲线", "折线", "阶梯线"], i => chart.SetInterpolation((LineInterpolation)i)));
+        scene.Options.Add(Toggle("显示数据点", true, v => chart.ShowMarkers = v));
+        scene.Options.Add(Toggle("显示辅助网格", true, v => chart.ShowGrid = v));
+        scene.Options.Add(ActionButton("放大", () => chart.Zoom(1.5)));
+        scene.Options.Add(ActionButton("缩小", () => chart.Zoom(1 / 1.5)));
+        return scene;
+    }
 
     private static ChartScene Bars()
     {
@@ -278,11 +294,54 @@ public static class ExampleCatalog
     {
         var chart = new RealtimeSensorPlot(); var clock = new DemoClock();
         var session = new RealtimeSensorSession(action => Dispatcher.UIThread.Post(action), frame => chart.SetFrame(frame),
-            new(capacity: 2000, initialSampleCount: 1000, pointBudget: 500), clock);
+            new(capacity: 2000, initialSampleCount: 1000, pointBudget: 500,
+                productionInterval: TimeSpan.FromMilliseconds(100), publicationInterval: TimeSpan.FromMilliseconds(100)), clock);
         session.Initialize(); session.PublishTick();
-        chart.ZoomRequested += (scale, anchor) => { session.Zoom(scale, anchor); session.PublishTick(); };
-        return Scene(chart, p => chart.Palette = p, () => session.Statistics.Error?.Message ?? chart.Status,
-            chart.ReleaseFrame, tick: () => { clock.Now += TimeSpan.FromMilliseconds(100); session.ProduceTick(); session.PublishTick(); }, idle: session.StopAsync);
+        void Follow() { session.FollowLatest(); session.PublishTick(); }
+        void Zoom(double scale, long anchor)
+        {
+            var following = session.Statistics.IsFollowingLatest;
+            session.Zoom(scale, anchor);
+            if (following) session.FollowLatest();
+            session.PublishTick();
+        }
+        void Pan(long delta) { session.Pan(delta); session.PublishTick(); }
+        void SetWindow(TimeWindow window) { session.SetWindow(window); session.PublishTick(); }
+        void OnFollow(object? sender, EventArgs args) => Follow();
+        chart.ZoomRequested += Zoom;
+        chart.PanRequested += Pan;
+        chart.WindowRequested += SetWindow;
+        chart.FollowRequested += OnFollow;
+        var scene = new ChartScene
+        {
+            View = chart,
+            ApplyTheme = (palette, dark) =>
+            {
+                chart.Palette = palette; chart.FirstSeriesBrush = palette.Accent;
+                chart.SecondSeriesBrush = new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse(dark ? "#39D4B4" : "#008575"));
+            },
+            ReadStatus = () => session.Statistics.Error?.Message ?? chart.Status,
+            ReadViewState = () => session.Statistics.IsFollowingLatest ? "实时跟随" : "查看历史 · 采集继续",
+            IsFollowingLatest = () => session.Statistics.IsFollowingLatest,
+            FollowLatest = Follow,
+            Reset = () =>
+            {
+                if (chart.Frame is { } frame)
+                    session.SetWindow(new(Math.Max(frame.Extent.StartTicks, frame.Extent.EndTicks - session.Options.InitialWindow.Ticks), frame.Extent.EndTicks));
+                Follow();
+            },
+            Tick = () => { clock.Now += TimeSpan.FromMilliseconds(100); session.ProduceTick(); session.PublishTick(); },
+            Release = async () =>
+            {
+                chart.ZoomRequested -= Zoom; chart.PanRequested -= Pan;
+                chart.WindowRequested -= SetWindow; chart.FollowRequested -= OnFollow;
+                chart.ReleaseFrame(); await session.StopAsync();
+            }
+        };
+        scene.Options.Add(ActionButton("放大时间轴", () => chart.Zoom(1.5)));
+        scene.Options.Add(ActionButton("缩小时间轴", () => chart.Zoom(1 / 1.5)));
+        scene.Options.Add(new TextBlock { Text = "缩放保持实时跟随。拖动图表可查看历史；点击工具栏的「回到实时」恢复跟随。", TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, FontSize = 12, Opacity = .7 });
+        return scene;
     }
     private static ChartScene LargeData()
     {
@@ -290,16 +349,6 @@ public static class ExampleCatalog
         chart.SetSource(new(1, [LargeDataSeries.Generate(1_000_000, 1), LargeDataSeries.Generate(1_000_000, 2)]));
         var scene = Scene(chart, p => chart.Palette = p, () => chart.Status, chart.ReleaseSource, chart.ResetView, idle: () => chart.WhenIdle);
         scene.Options.Add(ActionButton("放大到局部", () => chart.Zoom(4)));
-        return scene;
-    }
-    private static ChartScene Point3D()
-    {
-        var chart = new Point3DPlot();
-        chart.SetSource(new("helix", Enumerable.Range(0, 480).Select(i => new Point3DSample(i,
-            Math.Sin(i * .11) * (1 + i * .003), Math.Cos(i * .11) * (1 + i * .003), i * .018 - 4)), 1));
-        var scene = Scene(chart, p => chart.Palette = p, () => chart.AccessibleSummary, chart.ReleaseSource, chart.ResetCamera);
-        scene.Options.Add(ActionButton("旋转视角", () => chart.Orbit(.25, .1)));
-        scene.Options.Add(ActionButton("放大", () => chart.Zoom(1.2)));
         return scene;
     }
     private static ChartScene Surface()

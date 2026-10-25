@@ -165,8 +165,8 @@ public sealed class RealtimeSensorRenderFrame
 /// </summary>
 public sealed class RealtimeSensorPlot : Control
 {
-    private static readonly IBrush FirstSensorBrush = new SolidColorBrush(Color.Parse("#61D5C3"));
-    private static readonly IBrush SecondSensorBrush = new SolidColorBrush(Color.Parse("#FFBE72"));
+    private IBrush _firstSeriesBrush = new SolidColorBrush(Color.Parse("#61D5C3"));
+    private IBrush _secondSeriesBrush = new SolidColorBrush(Color.Parse("#FFBE72"));
     private UiPalette _palette = UiPalette.Dark;
     private Point? _dragStart;
     private TimeWindow? _dragWindow;
@@ -207,6 +207,16 @@ public sealed class RealtimeSensorPlot : Control
         set { ArgumentNullException.ThrowIfNull(value); _palette = value; InvalidateVisual(); }
     }
     public event EventHandler? StateChanged;
+    public IBrush FirstSeriesBrush
+    {
+        get => _firstSeriesBrush;
+        set { ArgumentNullException.ThrowIfNull(value); _firstSeriesBrush = value; InvalidateVisual(); }
+    }
+    public IBrush SecondSeriesBrush
+    {
+        get => _secondSeriesBrush;
+        set { ArgumentNullException.ThrowIfNull(value); _secondSeriesBrush = value; InvalidateVisual(); }
+    }
     public event Action<double, long>? ZoomRequested;
     public event Action<long>? PanRequested;
     public event Action<TimeWindow>? WindowRequested;
@@ -492,7 +502,7 @@ public sealed class RealtimeSensorPlot : Control
             var legendLeft = Math.Max(220, Bounds.Width - 272);
             for (var pair = 0; pair < 2; pair++)
             {
-                var brush = pair == 0 ? FirstSensorBrush : SecondSensorBrush;
+                var brush = pair == 0 ? FirstSeriesBrush : SecondSeriesBrush;
                 var x = legendLeft + pair * 132;
                 context.DrawLine(new Pen(brush, 2), new(x, area.Top - 15), new(x + 15, area.Top - 15));
                 DrawingText.Draw(context, pane.Series[pair].Name, new(x + 20, area.Top - 23), brush, 11, 105);
@@ -521,7 +531,7 @@ public sealed class RealtimeSensorPlot : Control
                 for (var pair = 0; pair < pane.Series.Length; pair++)
                 {
                     var series = pane.Series[pair];
-                    var brush = pair == 0 ? FirstSensorBrush : SecondSensorBrush;
+                    var brush = pair == 0 ? FirstSeriesBrush : SecondSeriesBrush;
                     var pen = new Pen(brush, 1.6);
                     context.DrawGeometry(null, pen, prepared.Paths[series.Index]);
                     foreach (var marker in series.Markers)
@@ -535,7 +545,7 @@ public sealed class RealtimeSensorPlot : Control
                     if (selected.SeriesIndex / 2 == paneIndex && selected.Sample.Value is { } value &&
                         double.IsFinite(value) && pane.Geometry.RawDomain is not null)
                     {
-                        var brush = selected.SeriesIndex % 2 == 0 ? FirstSensorBrush : SecondSensorBrush;
+                        var brush = selected.SeriesIndex % 2 == 0 ? FirstSeriesBrush : SecondSeriesBrush;
                         context.DrawEllipse(Palette.Surface, new Pen(brush, 2),
                             Project(pane.Geometry.Normalize(selected.Sample.UtcTicks, value)), 4, 4);
                     }
@@ -553,12 +563,13 @@ public sealed class RealtimeSensorPlot : Control
                     Palette.Error, 11, area.Width - 12);
         }
         var bottom = PanePlotBounds(3);
-        for (var index = 0; index <= 4; index++)
+        var timeDivisions = bottom.Width < 480 ? 2 : 4;
+        for (var index = 0; index <= timeDivisions; index++)
         {
-            var ticks = AtFraction(frame.Window, index / 4d);
-            var x = bottom.Left + bottom.Width * index / 4;
-            var width = Math.Min(92, bottom.Width / 4 - 2);
-            var left = index == 0 ? x : index == 4 ? x - width : x - width / 2;
+            var ticks = AtFraction(frame.Window, index / (double)timeDivisions);
+            var x = bottom.Left + bottom.Width * index / timeDivisions;
+            var width = Math.Min(92, bottom.Width / timeDivisions - 6);
+            var left = index == 0 ? x : index == timeDivisions ? x - width : x - width / 2;
             DrawingText.Draw(context, Timestamp(ticks), new(left, bottom.Bottom + 8),
                 Palette.Muted, 10, width);
         }

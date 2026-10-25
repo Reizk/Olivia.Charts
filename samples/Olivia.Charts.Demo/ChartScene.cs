@@ -18,6 +18,9 @@ public sealed class ChartScene : IAsyncDisposable
     public required Func<Task> Release { get; init; }
     public Action? Reset { get; init; }
     public Action? Tick { get; init; }
+    public Func<string>? ReadViewState { get; init; }
+    public Func<bool>? IsFollowingLatest { get; init; }
+    public Action? FollowLatest { get; init; }
     public List<Control> Options { get; } = [];
     public bool IsPaused { get; private set; }
     public bool IsClosed => _shutdown is not null;

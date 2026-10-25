@@ -20,7 +20,7 @@ internal static class Program
 
 public sealed class SmokeApp : Application
 {
-    public override void Initialize() => Styles.Add(new FluentTheme());
+    public override void Initialize() => Styles.Add(ChartsApp.CreateTheme());
     public override void OnFrameworkInitializationCompleted()
     {
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
@@ -38,6 +38,20 @@ public sealed class SmokeApp : Application
                         var watch = Stopwatch.StartNew();
                         await window.SelectExampleAsync(example.Id);
                         var scene = window.CurrentScene!;
+                        if (scene.View is RealtimeSensorPlot sensor)
+                        {
+                            await Settle(scene);
+                            sensor.Zoom(1.5); await Settle(scene);
+                            var zoomed = sensor.Frame!;
+                            scene.Advance(); await Settle(scene);
+                            if (!sensor.Frame!.IsFollowingLatest || sensor.Frame.SourceVersion <= zoomed.SourceVersion || sensor.Frame.Window.EndTicks <= zoomed.Window.EndTicks)
+                                throw new InvalidOperationException("Native sensor zoom stopped following live data.");
+                            sensor.Pan(-.2); await Settle(scene);
+                            if (sensor.Frame.IsFollowingLatest) throw new InvalidOperationException("Native pan did not enter history mode.");
+                            sensor.FollowLatest(); await Settle(scene);
+                            if (!sensor.Frame.IsFollowingLatest) throw new InvalidOperationException("Native follow did not restore live data.");
+                            scene.Reset?.Invoke(); await Settle(scene);
+                        }
                         scene.SetPaused(true);
                         foreach (var dark in new[] { false, true })
                         {
