@@ -9,6 +9,6 @@
     <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Olivia.Charts.Avalonia" Version="0.1.0-alpha.2" />
+    <PackageReference Include="Olivia.Charts.Avalonia" Version="0.1.0-alpha.3" />
   </ItemGroup>
 </Project>

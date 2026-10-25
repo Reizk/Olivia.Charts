@@ -16,6 +16,10 @@ public sealed class ScatterPlot : Control
     private ScatterChartSource? _source;
     private ScatterChartOptions _options = new();
     private int _selection = -1;
+    private Point? _dragStart;
+    private IPointer? _dragPointer;
+    private HistoryValueDomain _dragX, _dragY;
+    private bool _dragging, _allowNavigation = true;
     private IReadOnlyDictionary<string, ChartWorkspaceSeries>? _workspaceStyles;
     /// <summary>Publishes one fully prepared workspace frame before notifying observers.</summary>
     public void SetWorkspaceSnapshot(ScatterChartSnapshot snapshot, ChartWorkspaceConfiguration configuration)
@@ -24,7 +28,7 @@ public sealed class ScatterPlot : Control
         var prepared = configuration.Series.ToDictionary(s => s.Id, StringComparer.Ordinal);
         foreach (var series in snapshot.Source.Series)
             if (!prepared.ContainsKey(series.Id)) throw new ArgumentException("Missing series style.", nameof(configuration));
-        _workspaceStyles = prepared; _source = snapshot.Source; _options = snapshot.Options; Snapshot = snapshot;
+        EndDrag(); _workspaceStyles = prepared; _source = snapshot.Source; _options = snapshot.Options; Snapshot = snapshot;
         InvalidateFrame();
     }
     private IBrush SeriesBrush(int index)
@@ -38,10 +42,10 @@ public sealed class ScatterPlot : Control
     public ScatterPlot()
     {
         Focusable = true; ClipToBounds = true; MinHeight = 180;
-        GotFocus += (_, _) => InvalidateVisual(); LostFocus += (_, _) => InvalidateFrame();
-        AutomationProperties.SetName(this, "Scatter chart. Left and right select every visible point including occluded points; plus and minus zoom XY; PageUp and PageDown pan X; Up and Down pan Y; Home fits; Escape clears.");
+        GotFocus += (_, _) => InvalidateVisual(); LostFocus += (_, _) => { EndDrag(); InvalidateFrame(); };
+        AutomationProperties.SetName(this, "Scatter chart. Wheel zooms at the pointer; drag pans XY; Left and Right select visible points including occluded points; plus and minus zoom; PageUp and PageDown pan X; Up and Down pan Y; Home fits; Escape clears.");
     }
-    public bool AllowNavigation { get; set; } = true;
+    public bool AllowNavigation { get => _allowNavigation; set { _allowNavigation = value; if (!value) EndDrag(); } }
     public ScatterChartSnapshot? Snapshot { get; private set; }
     public long FrameRevision { get; private set; }
     public ScatterChartOptions Options => _options;
@@ -59,15 +63,22 @@ public sealed class ScatterPlot : Control
     public event EventHandler? StateChanged;
     public void SetSource(ScatterChartSource source)
     {
-        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(source); var snapshot = source.Query(_options); _workspaceStyles = null; _source = source; Snapshot = snapshot; InvalidateFrame();
+        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(source); var snapshot = source.Query(_options);
+        // Live source updates may continue a gesture when the displayed coordinate system is unchanged.
+        if (Snapshot?.XDomain != snapshot.XDomain || Snapshot?.YDomain != snapshot.YDomain) EndDrag();
+        _workspaceStyles = null; _source = source; Snapshot = snapshot; InvalidateFrame();
     }
     public void SetOptions(ScatterChartOptions options)
     {
-        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(options); var snapshot = _source?.Query(options); _options = options; Snapshot = snapshot; InvalidateFrame();
+        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(options); EndDrag(); ApplyOptions(options);
+    }
+    private void ApplyOptions(ScatterChartOptions options)
+    {
+        var snapshot = _source?.Query(options); _options = options; Snapshot = snapshot; InvalidateFrame();
     }
     public void ReleaseSource()
     {
-        Dispatcher.UIThread.VerifyAccess(); _workspaceStyles = null; _source = null; Snapshot = null; InvalidateFrame();
+        Dispatcher.UIThread.VerifyAccess(); EndDrag(); _workspaceStyles = null; _source = null; Snapshot = null; InvalidateFrame();
     }
     private void InvalidateFrame() { FrameRevision++; _selection = -1; Changed(); }
     private void Changed()
@@ -95,13 +106,16 @@ public sealed class ScatterPlot : Control
         _selection = hit is null ? -1 : Array.FindIndex(snapshot.Points.ToArray(), bar => bar.Hit.Equals(hit.Value));
         Changed(); return hit is not null;
     }
-    public void Zoom(double factor)
+    public void Zoom(double factor) => Zoom(factor, .5, .5);
+    /// <summary>Zooms around normalized data anchors: X from the left, Y from the bottom.</summary>
+    public void Zoom(double factor, double xAnchor, double yAnchor)
     {
         Dispatcher.UIThread.VerifyAccess();
         if (!AllowNavigation) return;
         if (!double.IsFinite(factor) || factor <= 0) throw new ArgumentOutOfRangeException(nameof(factor));
+        if (!double.IsFinite(xAnchor) || !double.IsFinite(yAnchor)) throw new ArgumentOutOfRangeException(nameof(xAnchor));
         if (Snapshot is not { XDomain: { } xDomain, YDomain: { } yDomain }) return;
-        SetOptions(new(_options.GeometryBudget, Transform(xDomain, factor, 0), Transform(yDomain, factor, 0)));
+        SetOptions(new(_options.GeometryBudget, Transform(xDomain, factor, 0, Math.Clamp(xAnchor, 0, 1)), Transform(yDomain, factor, 0, Math.Clamp(yAnchor, 0, 1))));
     }
     public void ResetView() { if (AllowNavigation) SetOptions(new(_options.GeometryBudget)); }
     public void Pan(double xFraction, double yFraction = 0)
@@ -113,7 +127,7 @@ public sealed class ScatterPlot : Control
         SetOptions(new(_options.GeometryBudget, Transform(xDomain, 1, xFraction), Transform(yDomain, 1, yFraction)));
     }
     // Half-range arithmetic avoids overflow for domains spanning ±double.MaxValue.
-    private static HistoryValueDomain Transform(HistoryValueDomain domain, double factor, double pan)
+    private static HistoryValueDomain Transform(HistoryValueDomain domain, double factor, double pan, double anchor = .5)
     {
         if (factor == 1 && pan == 0) return domain;
         var span = domain.Maximum - domain.Minimum;
@@ -128,28 +142,57 @@ public sealed class ScatterPlot : Control
             return double.IsFinite(pannedMin) && double.IsFinite(pannedMax) && pannedMin < pannedMax
                 ? new(pannedMin, pannedMax) : domain;
         }
-        var shifted = center + half * (2 * pan);
         var extent = half / factor;
+        var shifted = center + half * (2 * pan) + (half - extent) * (2 * anchor - 1);
         var min = shifted - extent; var max = shifted + extent;
         if (!double.IsFinite(min) || !double.IsFinite(max) || min >= max) return domain;
         return new(min, max);
     }
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
-        base.OnPropertyChanged(change); if (change.Property == BoundsProperty) InvalidateFrame();
+        base.OnPropertyChanged(change); if (change.Property == BoundsProperty) { EndDrag(); InvalidateFrame(); }
     }
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e) { base.OnAttachedToVisualTree(e); _attached = true; InvalidateFrame(); }
-    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e) { _attached = false; InvalidateFrame(); base.OnDetachedFromVisualTree(e); }
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e) { EndDrag(); _attached = false; InvalidateFrame(); base.OnDetachedFromVisualTree(e); }
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
         if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed || !IsPlotAvailable || !PlotArea.Contains(e.GetPosition(this))) return;
-        Focus(); SelectAt(e.GetPosition(this), FrameRevision); e.Handled = true;
+        EndDrag(); Focus(); SelectAt(e.GetPosition(this), FrameRevision);
+        if (AllowNavigation && Snapshot is { XDomain: { } xDomain, YDomain: { } yDomain })
+        {
+            _dragStart = e.GetPosition(this); _dragX = xDomain; _dragY = yDomain;
+            _dragPointer = e.Pointer; e.Pointer.Capture(this);
+        }
+        e.Handled = true;
+    }
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+        if (_dragStart is not { } start || e.Pointer != _dragPointer) return;
+        if (!AllowNavigation || !_attached || !IsEffectivelyEnabled || !IsPlotAvailable || _source is null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) { EndDrag(); return; }
+        var delta = e.GetPosition(this) - start;
+        if (!_dragging && Math.Abs(delta.X) < 4 && Math.Abs(delta.Y) < 4) return;
+        _dragging = true;
+        ApplyOptions(new(_options.GeometryBudget, Transform(_dragX, 1, -delta.X / PlotArea.Width), Transform(_dragY, 1, delta.Y / PlotArea.Height)));
+        e.Handled = true;
+    }
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        if (e.Pointer == _dragPointer) { EndDrag(); e.Handled = true; }
+        base.OnPointerReleased(e);
+    }
+    protected override void OnPointerCaptureLost(PointerCaptureLostEventArgs e) { EndDrag(); base.OnPointerCaptureLost(e); }
+    private void EndDrag()
+    {
+        var pointer = _dragPointer; _dragPointer = null; _dragStart = null; _dragging = false;
+        if (pointer?.Captured == this) pointer.Capture(null);
     }
     protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
     {
         base.OnPointerWheelChanged(e); if (!AllowNavigation || !IsPlotAvailable || !PlotArea.Contains(e.GetPosition(this)) || e.Delta.Y == 0) return;
-        Zoom(e.Delta.Y > 0 ? 1.5 : 1 / 1.5); e.Handled = true;
+        var position = e.GetPosition(this);
+        Zoom(e.Delta.Y > 0 ? 1.5 : 1 / 1.5, (position.X - PlotArea.Left) / PlotArea.Width, (PlotArea.Bottom - position.Y) / PlotArea.Height); e.Handled = true;
     }
     protected override void OnKeyDown(KeyEventArgs e)
     {

@@ -111,6 +111,8 @@ public static class ExampleCatalog
         var modes = Enum.GetValues<BarChartLayout>();
         scene.Options.Add(Choice("排列方式", modes.Select(x => x.ToString()).ToArray(), i => chart.SetOptions(new(modes[i]))));
         scene.Options.Add(ActionButton("放大", () => chart.Zoom(1.5)));
+        scene.Options.Add(ActionButton("缩小", () => chart.Zoom(1 / 1.5)));
+        scene.Options.Add(new TextBlock { Text = "滚轮围绕鼠标位置缩放。按住左键左右拖动，可查看两端的柱形；Home 恢复全图。", TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, FontSize = 12, Opacity = .7 });
         return scene;
     }
     private static ChartScene Area(bool spline)
@@ -152,6 +154,8 @@ public static class ExampleCatalog
         Update();
         var scene = Scene(chart, p => chart.Palette = p, () => chart.AccessibleSummary, chart.ReleaseSource, chart.ResetView, live ? Update : null);
         scene.Options.Add(ActionButton("放大", () => chart.Zoom(1.5)));
+        scene.Options.Add(ActionButton("缩小", () => chart.Zoom(1 / 1.5)));
+        scene.Options.Add(new TextBlock { Text = "滚轮围绕鼠标位置缩放。按住左键拖动，可查看上下左右的散点；Home 恢复全图。", TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, FontSize = 12, Opacity = .7 });
         return scene;
     }
     private static ChartScene Proportion()

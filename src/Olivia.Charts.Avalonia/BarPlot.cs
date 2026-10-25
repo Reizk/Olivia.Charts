@@ -17,11 +17,15 @@ public sealed class BarPlot : Control
     private BarChartOptions _options = new();
     private int _selection = -1;
     private bool _attached;
+    private Point? _dragStart;
+    private IPointer? _dragPointer;
+    private int _dragCategoryStart, _dragCategoryCount;
+    private bool _dragging;
     public BarPlot()
     {
         Focusable = true; ClipToBounds = true; MinHeight = 180;
-        GotFocus += (_, _) => InvalidateVisual(); LostFocus += (_, _) => InvalidateVisual();
-        AutomationProperties.SetName(this, "Bar chart. Left and right select bars; plus and minus zoom categories; Home fits; Escape clears selection.");
+        GotFocus += (_, _) => InvalidateVisual(); LostFocus += (_, _) => { EndDrag(); InvalidateVisual(); };
+        AutomationProperties.SetName(this, "Bar chart. Wheel zooms at the pointer; drag pans categories; Left and Right select bars; plus and minus zoom; PageUp and PageDown pan; Home fits; Escape clears selection.");
     }
     public BarChartSnapshot? Snapshot { get; private set; }
     public long FrameRevision { get; private set; }
@@ -57,20 +61,24 @@ public sealed class BarPlot : Control
         Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(snapshot);
         if (snapshot.StackStatus != BarChartStackStatus.Ready || snapshot.Options.Layout is not (BarChartLayout.Stacked or BarChartLayout.FullStacked))
             throw new ArgumentException("Expected an admitted stack snapshot.", nameof(snapshot));
-        _source = snapshot.Source; _options = snapshot.Options; Snapshot = snapshot; InvalidateFrame();
+        EndDrag(); _source = snapshot.Source; _options = snapshot.Options; Snapshot = snapshot; InvalidateFrame();
     }
     public event EventHandler? StateChanged;
     public void SetSource(BarChartSource source)
     {
-        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(source); var snapshot = source.Query(_options); _source = source; Snapshot = snapshot; InvalidateFrame();
+        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(source); var snapshot = source.Query(_options); EndDrag(); _source = source; Snapshot = snapshot; InvalidateFrame();
     }
     public void SetOptions(BarChartOptions options)
     {
-        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(options); var snapshot = _source?.Query(options); _options = options; Snapshot = snapshot; InvalidateFrame();
+        Dispatcher.UIThread.VerifyAccess(); ArgumentNullException.ThrowIfNull(options); EndDrag(); ApplyOptions(options);
+    }
+    private void ApplyOptions(BarChartOptions options)
+    {
+        var snapshot = _source?.Query(options); _options = options; Snapshot = snapshot; InvalidateFrame();
     }
     public void ReleaseSource()
     {
-        Dispatcher.UIThread.VerifyAccess(); _source = null; Snapshot = null; InvalidateFrame();
+        Dispatcher.UIThread.VerifyAccess(); EndDrag(); _source = null; Snapshot = null; InvalidateFrame();
     }
     private void InvalidateFrame() { FrameRevision++; _selection = -1; Changed(); }
     private void Changed()
@@ -117,13 +125,17 @@ public sealed class BarPlot : Control
         return _attached && IsEffectivelyEnabled && revision == FrameRevision && ReferenceEquals(Snapshot, snapshot)
             && _selection == index;
     }
-    public void Zoom(double factor)
+    public void Zoom(double factor) => Zoom(factor, .5);
+    /// <summary>Zooms around a normalized horizontal anchor (zero is the left edge).</summary>
+    public void Zoom(double factor, double anchor)
     {
         Dispatcher.UIThread.VerifyAccess();
         if (!double.IsFinite(factor) || factor <= 0) throw new ArgumentOutOfRangeException(nameof(factor));
+        if (!double.IsFinite(anchor)) throw new ArgumentOutOfRangeException(nameof(anchor));
         if (Snapshot is not { CategoryCount: > 0 } snapshot || _source is null) return;
-        var count = Math.Clamp((int)Math.Clamp(Math.Ceiling(snapshot.CategoryCount / factor), 1, 256), 1, _source.Categories.Length);
-        var start = Math.Clamp(snapshot.CategoryStart + (snapshot.CategoryCount - count) / 2, 0, _source.Categories.Length - count);
+        var requested = factor > 1 ? Math.Floor(snapshot.CategoryCount / factor) : Math.Ceiling(snapshot.CategoryCount / factor);
+        var count = (int)Math.Clamp(requested, 1, _source.Categories.Length);
+        var start = Math.Clamp((int)Math.Round(snapshot.CategoryStart + (snapshot.CategoryCount - count) * Math.Clamp(anchor, 0, 1)), 0, _source.Categories.Length - count);
         SetOptions(new(_options.Layout, start, count, _options.GeometryBudget, _options.FixedDomain, _options.StackWorkBudget));
     }
     public void ResetView() => SetOptions(new(_options.Layout, geometryBudget: _options.GeometryBudget, fixedDomain: _options.FixedDomain, stackWorkBudget: _options.StackWorkBudget));
@@ -136,20 +148,50 @@ public sealed class BarPlot : Control
     }
     protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs change)
     {
-        base.OnPropertyChanged(change); if (change.Property == BoundsProperty) InvalidateFrame();
+        base.OnPropertyChanged(change); if (change.Property == BoundsProperty) { EndDrag(); InvalidateFrame(); }
     }
     protected override void OnAttachedToVisualTree(VisualTreeAttachmentEventArgs e) { base.OnAttachedToVisualTree(e); _attached = true; InvalidateFrame(); }
-    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e) { _attached = false; InvalidateFrame(); base.OnDetachedFromVisualTree(e); }
+    protected override void OnDetachedFromVisualTree(VisualTreeAttachmentEventArgs e) { EndDrag(); _attached = false; InvalidateFrame(); base.OnDetachedFromVisualTree(e); }
     protected override void OnPointerPressed(PointerPressedEventArgs e)
     {
         base.OnPointerPressed(e);
         if (!e.GetCurrentPoint(this).Properties.IsLeftButtonPressed || !IsPlotAvailable || !PlotArea.Contains(e.GetPosition(this))) return;
-        Focus(); SelectAt(e.GetPosition(this), FrameRevision); e.Handled = true;
+        EndDrag(); Focus(); SelectAt(e.GetPosition(this), FrameRevision);
+        if (Snapshot is { CategoryCount: > 0 } snapshot)
+        {
+            _dragStart = e.GetPosition(this); _dragCategoryStart = snapshot.CategoryStart; _dragCategoryCount = snapshot.CategoryCount;
+            _dragPointer = e.Pointer; e.Pointer.Capture(this);
+        }
+        e.Handled = true;
+    }
+    protected override void OnPointerMoved(PointerEventArgs e)
+    {
+        base.OnPointerMoved(e);
+        if (_dragStart is not { } start || e.Pointer != _dragPointer) return;
+        if (!_attached || !IsEffectivelyEnabled || !IsPlotAvailable || _source is null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed) { EndDrag(); return; }
+        var dx = e.GetPosition(this).X - start.X;
+        if (!_dragging && Math.Abs(dx) < 4) return;
+        _dragging = true;
+        var first = (int)Math.Clamp(Math.Round(_dragCategoryStart - dx / PlotArea.Width * _dragCategoryCount), 0, Math.Max(0, _source.Categories.Length - _dragCategoryCount));
+        if (Snapshot?.CategoryStart != first)
+            ApplyOptions(new(_options.Layout, first, _dragCategoryCount, _options.GeometryBudget, _options.FixedDomain, _options.StackWorkBudget));
+        e.Handled = true;
+    }
+    protected override void OnPointerReleased(PointerReleasedEventArgs e)
+    {
+        if (e.Pointer == _dragPointer) { EndDrag(); e.Handled = true; }
+        base.OnPointerReleased(e);
+    }
+    protected override void OnPointerCaptureLost(PointerCaptureLostEventArgs e) { EndDrag(); base.OnPointerCaptureLost(e); }
+    private void EndDrag()
+    {
+        var pointer = _dragPointer; _dragPointer = null; _dragStart = null; _dragging = false;
+        if (pointer?.Captured == this) pointer.Capture(null);
     }
     protected override void OnPointerWheelChanged(PointerWheelEventArgs e)
     {
         base.OnPointerWheelChanged(e); if (!IsPlotAvailable || !PlotArea.Contains(e.GetPosition(this)) || e.Delta.Y == 0) return;
-        Zoom(e.Delta.Y > 0 ? 1.5 : 1 / 1.5); e.Handled = true;
+        Zoom(e.Delta.Y > 0 ? 1.5 : 1 / 1.5, (e.GetPosition(this).X - PlotArea.Left) / PlotArea.Width); e.Handled = true;
     }
     protected override void OnKeyDown(KeyEventArgs e)
     {
