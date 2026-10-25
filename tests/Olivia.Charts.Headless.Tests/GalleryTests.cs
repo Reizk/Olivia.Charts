@@ -54,7 +54,7 @@ public sealed class GalleryTests
             scene.SetPaused(true); scene.Advance(); Assert.Equal(before, scene.TickCount);
             window.SetDarkTheme(true); Assert.Same(scene, window.CurrentScene); Assert.True(scene.IsPaused);
             scene.SetPaused(false); scene.Advance(); Assert.Equal(before + 1, scene.TickCount);
-            var first = window.SelectExampleAsync("surface");
+            var first = window.SelectExampleAsync("large-data");
             var last = window.SelectExampleAsync("price");
             await Task.WhenAll(first, last);
             Assert.True(scene.IsClosed); Assert.Equal("price", window.CurrentExample!.Id);
@@ -66,15 +66,17 @@ public sealed class GalleryTests
     [Fact]
     public void Catalog_search_has_stable_ids_and_no_unrelated_modules()
     {
-        Assert.Equal(25, ExampleCatalog.All.Count);
-        Assert.Equal(25, ExampleCatalog.All.Select(e => e.Id).Distinct().Count());
+        Assert.Equal(24, ExampleCatalog.All.Count);
+        Assert.Equal(24, ExampleCatalog.All.Select(e => e.Id).Distinct().Count());
         Assert.Contains(ExampleCatalog.All, e => e.Id == "line" && e.Group == "基础图表");
-        Assert.DoesNotContain(ExampleCatalog.All, e => e.Id is "point3d" or "binding" or "workspace");
+        Assert.DoesNotContain(ExampleCatalog.All, e => e.Id is "point3d" or "surface" or "binding" or "workspace");
         Assert.Empty(ExampleCatalog.Search("", "数据与配置"));
         Assert.Single(ExampleCatalog.Search("金融图表"));
         Assert.Equal("heatmap", Assert.Single(ExampleCatalog.Search("heatmap")).Id);
         Assert.Empty(ExampleCatalog.Search("不存在的图表"));
-        Assert.All(ExampleCatalog.Search("", "三维图表"), e => Assert.Equal("三维图表", e.Group));
+        Assert.Empty(ExampleCatalog.Search("", "三维图表"));
+        Assert.Empty(ExampleCatalog.Search("三维"));
+        Assert.Empty(ExampleCatalog.Search("surface"));
     }
 
     private static async Task Settle(ChartScene scene)
@@ -92,11 +94,6 @@ public sealed class GalleryTests
                 Assert.Equal(4, sensors.Frame!.Panes.Length);
                 Assert.All(sensors.Frame.Panes, pane => Assert.Equal(2, pane.Series.Length));
                 Assert.True(sensors.RenderStatistics.AcceptedFrames > 0);
-            }
-            if (plot is SurfacePlot surface)
-            {
-                await TestUi.EventuallyAsync(() => !surface.IsRendering, "Surface renderer did not settle.");
-                Assert.Null(surface.RasterError);
             }
         }
         Dispatcher.UIThread.RunJobs();

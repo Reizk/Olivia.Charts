@@ -40,8 +40,7 @@ public static class ExampleCatalog
         E("price", "金融图表", "时间与金融", "查看蜡烛图、成交量和技术指标，也可绘制标注。", "180 根原创合成 K 线", Price),
         E("sensors", "八路实时传感器", "实时与大数据", "四个面板同步查看八路信号，可暂停与继续。", "8 路信号 · 有界保留", Sensors),
         E("scatter-live", "实时散点", "实时与大数据", "观察两组点随时间移动，暂停后仔细检查。", "120 个点 · 确定性动画", () => Scatter(true)),
-        E("large-data", "百万点曲线", "实时与大数据", "缩放查看细节，显示按视口准备的曲线。", "2 条曲线 · 共 200 万点", LargeData),
-        E("surface", "三维曲面", "三维图表", "旋转、缩放静态曲面，按需切换数据或查看底面投影。", "41 × 41 静态网格", Surface)
+        E("large-data", "百万点曲线", "实时与大数据", "缩放查看细节，显示按视口准备的曲线。", "2 条曲线 · 共 200 万点", LargeData)
     ];
 
     private static ChartExample E(string id, string title, string group, string description, string note, Func<ChartScene> factory) =>
@@ -350,30 +349,6 @@ public static class ExampleCatalog
         chart.SetSource(new(1, [LargeDataSeries.Generate(1_000_000, 1), LargeDataSeries.Generate(1_000_000, 2)]));
         var scene = Scene(chart, p => chart.Palette = p, () => chart.Status, chart.ReleaseSource, chart.ResetView, idle: () => chart.WhenIdle);
         scene.Options.Add(ActionButton("放大到局部", () => chart.Zoom(4)));
-        return scene;
-    }
-    private static ChartScene Surface()
-    {
-        var chart = new SurfacePlot(); var version = 0L;
-        var axis = Enumerable.Range(0, 41).Select(i => (i - 20) / 5d).ToArray();
-        void Update()
-        {
-            var phase = version * .65;
-            var source = new SurfaceChartSource("wave", axis, axis,
-                axis.SelectMany(x => axis.Select(y => (double?)(Math.Sin(x + phase) * Math.Cos(y + phase * .6) * 2))), ++version);
-            chart.SetSource(source, -2, 2);
-        }
-        Update();
-        var scene = new ChartScene
-        {
-            View = chart, Reset = chart.ResetCamera, ReadStatus = () => chart.AccessibleSummary,
-            ApplyTheme = (p, dark) => { chart.Palette = p; chart.ChartTheme = (dark ? OliviaThemeDefinition.VS2019Dark : OliviaThemeDefinition.Win11Light).Chart; },
-            Release = () => { chart.ReleaseSource(); return chart.RenderingCompletion; }
-        };
-        scene.Options.Add(ActionButton("切换曲面", Update));
-        scene.Options.Add(Toggle("显示底面投影", chart.ShowProjection, v => chart.ShowProjection = v));
-        scene.Options.Add(Toggle("显示图例", chart.ShowLegend, v => chart.ShowLegend = v));
-        scene.Options.Add(new TextBlock { Text = "曲面保持静止。按住左键旋转，滚轮缩放；点击「切换曲面」更新数据，「重置视图」恢复视角。", TextWrapping = global::Avalonia.Media.TextWrapping.Wrap, FontSize = 12, Opacity = .7 });
         return scene;
     }
 }

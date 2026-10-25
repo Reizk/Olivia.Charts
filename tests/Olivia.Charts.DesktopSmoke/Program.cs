@@ -97,11 +97,8 @@ public sealed class SmokeApp : Application
                 DualAxisHistoryPlot dual => dual.WhenIdle.IsCompleted,
                 LargeDataPlot large => large.WhenIdle.IsCompleted,
                 RealtimeSensorPlot sensors => sensors.Frame is not null && sensors.Frame.Panes.Length == 4,
-                SurfacePlot surface => !surface.IsRendering && surface.DisplayedFrameRevision == surface.FrameRevision,
                 _ => true
             });
-            foreach (var surface in plots.OfType<SurfacePlot>())
-                if (surface.RasterError is { } error) throw new InvalidOperationException(error);
             if (ready && scene.View.Bounds.Width > 0) return;
             if (timer.Elapsed > TimeSpan.FromSeconds(20)) throw new TimeoutException("Native chart render did not settle.");
             await Task.Delay(10);
