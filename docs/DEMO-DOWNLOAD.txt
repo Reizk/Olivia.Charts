@@ -1,0 +1,29 @@
+Olivia Charts Demo
+
+Windows x64 public preview
+
+1. Install the .NET 8 Runtime for Windows x64:
+   https://dotnet.microsoft.com/en-us/download/dotnet/8.0
+2. Extract the entire ZIP into a folder.
+3. Run Olivia.Charts.Demo.exe.
+
+An SDK is not required. Keep the DLLs, native libraries, and other files
+together with the executable. This preview is not code-signed.
+
+The demo contains 24 examples with locally generated sample data.
+Its interface is currently in Chinese. Use the theme button at the top
+to switch between light and dark appearances.
+
+Source, English and Chinese guides, and issue reporting:
+https://github.com/Reizk/Olivia.Charts
+
+See LICENSE, THIRD-PARTY-NOTICES.md, and licenses/ for licensing.
+
+中文使用说明
+
+安装 Windows x64 版 .NET 8 Runtime，将整个 ZIP 解压后运行
+Olivia.Charts.Demo.exe。无需安装 SDK，请保留同目录下的所有文件。
+当前为未进行代码签名的公开预览版。
+
+Demo 包含 24 个示例，数据在本地生成。顶部按钮可切换明暗主题。
+项目主页提供中英文功能介绍与问题反馈入口。

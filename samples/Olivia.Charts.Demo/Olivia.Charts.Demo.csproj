@@ -3,8 +3,15 @@
     <OutputType>WinExe</OutputType>
     <IsPackable>false</IsPackable>
     <ApplicationIcon>Assets/chart-icon.ico</ApplicationIcon>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
   </PropertyGroup>
   <ItemGroup><AvaloniaResource Include="Assets/chart-icon.png" /></ItemGroup>
+  <ItemGroup>
+    <None Include="../../LICENSE" Link="LICENSE" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../THIRD-PARTY-NOTICES.md" Link="THIRD-PARTY-NOTICES.md" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../licenses/*.txt" Link="licenses/%(Filename)%(Extension)" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="../../docs/DEMO-DOWNLOAD.txt" Link="README.txt" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Olivia.Charts.Avalonia/Olivia.Charts.Avalonia.csproj" />
     <PackageReference Include="Avalonia.Desktop" />

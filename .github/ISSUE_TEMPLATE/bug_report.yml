@@ -1,0 +1,46 @@
+name: Bug report / 问题反馈
+description: Report a reproducible chart or demo problem / 反馈可复现的问题
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Please search existing issues first. Do not include secrets or private data. / 请先搜索已有问题，并移除敏感信息。
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit / 版本或提交
+      placeholder: 0.1.0-alpha.4
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment / 运行环境
+      description: OS, .NET version, display scaling, and GPU if relevant. / 系统、.NET 版本、缩放比例，必要时提供显卡信息。
+    validations:
+      required: true
+  - type: input
+    id: chart
+    attributes:
+      label: Chart or demo page / 图表或 Demo 页面
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce / 复现步骤
+      description: Include a minimal sample or synthetic dataset when possible. / 尽量附最小代码或合成数据。
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Expected and actual behavior / 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: attachments
+    attributes:
+      label: Screenshots or logs / 截图或日志
+      description: Attach only information you can share publicly. / 仅附可公开的信息。

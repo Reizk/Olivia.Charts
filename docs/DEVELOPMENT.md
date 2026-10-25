@@ -57,6 +57,10 @@ These commands create local NuGet packages and verify a consumer that references
 
 ## Further reading
 
+To reproduce the Windows x64 demo ZIP, both library packages, and SHA-256 checksums after verification, run `./eng/package-release.ps1` on Windows. It performs restore, build, tests, publishing, and package consumption checks. Output is under `artifacts/releases/v<version>`. The script refuses to replace an existing release archive.
+
+Follow [CONTRIBUTING.md](../CONTRIBUTING.md) for changes and [SECURITY.md](../SECURITY.md) for private vulnerability reports.
+
 - [Demo features and controls](DEMO-OVERVIEW.zh-en.md) — Chinese and English.
 - [Feature coverage](COVERAGE.zh-CN.md) — Chinese.
 - [Validation history and test boundaries](VALIDATION.zh-CN.md) — Chinese.

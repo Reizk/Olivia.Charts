@@ -1,0 +1,23 @@
+name: Feature request / 功能建议
+description: Suggest a chart feature or improvement / 建议新功能或改进
+title: "[Feature] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: Use case / 使用场景
+      description: What do you want to accomplish, and what is missing today? / 希望完成什么，当前缺少什么？
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Suggested behavior / 建议的行为
+      description: Describe the result or interaction you expect. / 描述预期效果或操作方式。
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or examples / 替代方案或示例

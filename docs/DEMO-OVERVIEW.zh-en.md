@@ -1,6 +1,6 @@
 # Olivia Charts Demo 功能简介与 Feature Overview
 
-0.1.0-alpha.3 · 2026-10-25
+0.1.0-alpha.4 · 2026-10-26
 
 ## 中文简介
 

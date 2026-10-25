@@ -7,13 +7,18 @@
 <p align="center">面向 .NET 与 Avalonia 的交互式图表库。</p>
 
 <p align="center">
-  <a href="README.md">English</a> · <strong>简体中文</strong><br>
-  <a href="#图表一览">图表一览</a> · <a href="#运行-demo">运行 Demo</a> · <a href="docs/DEVELOPMENT.md">开发指南</a>
+  <a href="https://github.com/Reizk/Olivia.Charts/actions/workflows/ci.yml"><img src="https://github.com/Reizk/Olivia.Charts/actions/workflows/ci.yml/badge.svg" alt="构建与测试"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-0C432D.svg" alt="MIT 许可证"></a>
 </p>
 
-Olivia Charts 将常用图表、时间序列、金融分析和实时信号展示整合到桌面图表工作台中。通过 **5 个分类、24 个示例**体验交互效果，切换明暗主题，并在参数面板中调整当前图表的显示方式。
+<p align="center">
+  <a href="README.md">English</a> · <strong>简体中文</strong><br>
+  <a href="https://github.com/Reizk/Olivia.Charts/releases/tag/v0.1.0-alpha.4">下载体验</a> · <a href="#图表一览">图表一览</a> · <a href="#运行-demo">运行 Demo</a> · <a href="CONTRIBUTING.md">参与贡献</a>
+</p>
 
-**开发预览版** · `0.1.0-alpha.3` · .NET 8 · Avalonia
+Olivia Charts 是面向 .NET 与 Avalonia 的开源图表库，将常用图表、时间序列、金融分析和实时信号展示整合到桌面图表工作台中。通过 **5 个分类、24 个示例**体验交互效果，切换明暗主题，并在参数面板中调整当前图表的显示方式。
+
+**公开预览版** · `0.1.0-alpha.4` · .NET 8 · Avalonia
 
 ![Olivia Charts 工作台中的浅色曲线图](docs/images/demo-line-light.png)
 
@@ -43,7 +48,9 @@ Olivia Charts 将常用图表、时间序列、金融分析和实时信号展示
 
 ## 运行 Demo
 
-安装 **.NET 10 SDK** 和 **.NET 8 Runtime**，然后执行：
+**Windows 直接体验：** 从 [发布页](https://github.com/Reizk/Olivia.Charts/releases/tag/v0.1.0-alpha.4) 下载 Windows x64 Demo ZIP，解压后运行 `Olivia.Charts.Demo.exe`。需要先安装 **.NET 8 Runtime（x64）**，无需 SDK。
+
+**从源码构建：** 安装 **.NET 10 SDK** 和 **.NET 8 Runtime**，然后执行：
 
 ```sh
 git clone https://github.com/Reizk/Olivia.Charts.git
@@ -55,14 +62,21 @@ dotnet run --project samples/Olivia.Charts.Demo -c Release --no-build
 
 从左侧选择示例，在右侧参数面板调整选项，即可体验不同图表。缩放、暂停、重置和实时跟随等操作见 [Demo 使用简介](docs/DEMO-OVERVIEW.zh-en.md)。
 
-当前预览版通过源码构建，尚未提供公开 NuGet 包。
+发布页同时提供两个图表库的 `.nupkg` 文件，可通过本地 NuGet 源使用，暂未上传 nuget.org。当前为 alpha 预览版，API 后续可能调整。
 
 ## 文档
 
 - [Demo 功能与操作](docs/DEMO-OVERVIEW.zh-en.md)：中英文使用简介。
 - [开发指南](docs/DEVELOPMENT.md)：项目结构、测试与本地打包。
 - [详细功能覆盖](docs/COVERAGE.zh-CN.md)：图表与示例的覆盖范围。
+- [更新记录](CHANGELOG.md)：版本变化与当前限制。
+
+## 参与贡献
+
+欢迎使用中文或英文反馈问题、改进文档和提交范围明确的代码修改。可先阅读 [贡献指南](CONTRIBUTING.md)，或通过 [问题模板](https://github.com/Reizk/Olivia.Charts/issues/new/choose) 提交反馈。
+
+参与讨论请遵守 [社区行为准则](CODE_OF_CONDUCT.md)；安全漏洞请按 [安全政策](SECURITY.md) 私下报告。
 
 ## 许可证
 
-当前预览版尚未指定开源许可证。
+Olivia Charts 采用 [MIT 许可证](LICENSE)。第三方组件保留各自许可，详见 [第三方声明](THIRD-PARTY-NOTICES.md)。
