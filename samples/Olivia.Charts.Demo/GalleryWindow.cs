@@ -60,14 +60,14 @@ public sealed class GalleryWindow : Window
         FontFamily = new("Inter, Microsoft YaHei UI, Noto Sans CJK SC, sans-serif");
         Styles.Add(new StyleInclude(new Uri("avares://Olivia.Charts.Demo/")) { Source = new("avares://Olivia.Charts.Demo/GalleryStyles.axaml") });
         var top = new Grid { ColumnDefinitions = new("*,Auto"), Margin = new(24, 0), VerticalAlignment = VerticalAlignment.Center };
-        var logo = new Image { Name = "DemoLogo", Width = 42, Height = 42, Source = _brandMark };
+        var logo = new Image { Name = "DemoLogo", Width = 50, Height = 50, Source = _brandMark };
         RenderOptions.SetBitmapInterpolationMode(logo, BitmapInterpolationMode.HighQuality);
         top.Children.Add(new StackPanel { Orientation = Orientation.Horizontal, Spacing = 12, Children = { logo,
             new StackPanel { VerticalAlignment = VerticalAlignment.Center, Spacing = 2, Children = {
-                new TextBlock { Text = "Olivia Charts", FontSize = 18, FontWeight = FontWeight.SemiBold },
-                new TextBlock { Text = "数据可视化工作台", FontSize = 10, Opacity = .6 } } } } });
+                new TextBlock { Text = "Olivia Charts", FontSize = 18, FontWeight = FontWeight.SemiBold, Foreground = Brush("#F4E9D2") },
+                new TextBlock { Text = "数据可视化工作台", FontSize = 10, Foreground = Brush("#F4E9D2"), Opacity = .75 } } } } });
         var topActions = new StackPanel { Orientation = Orientation.Horizontal, Spacing = 16, VerticalAlignment = VerticalAlignment.Center,
-            Children = { new TextBlock { Text = $"{ExampleCatalog.All.Count} 个精选示例", FontSize = 12, Opacity = .6, VerticalAlignment = VerticalAlignment.Center }, _theme } };
+            Children = { new TextBlock { Text = $"{ExampleCatalog.All.Count} 个精选示例", FontSize = 12, Foreground = Brush("#F4E9D2"), Opacity = .75, VerticalAlignment = VerticalAlignment.Center }, _theme } };
         Grid.SetColumn(topActions, 1); top.Children.Add(topActions); _masthead.Child = top;
         Grid.SetColumnSpan(_masthead, 2); _root.Children.Add(_masthead);
 
@@ -132,21 +132,23 @@ public sealed class GalleryWindow : Window
         _dark = dark; RequestedThemeVariant = dark ? ThemeVariant.Dark : ThemeVariant.Light;
         _theme.Content = dark ? "浅色外观" : "深色外观";
         void Resource(string name, string light, string night) => Resources[name] = Brush(dark ? night : light);
-        Resource("ChartSurface", "#FFFFFF", "#182231"); Resource("ChartText", "#1F2D43", "#E5EDF8");
-        Resource("ChartBorder", "#E3E9F2", "#2B394D"); Resource("ChartAccent", "#3268E8", "#79A2FF");
-        Resource("ChartAccentHover", "#2658CF", "#527EDB"); Resource("ChartHover", "#F4F7FD", "#233449");
-        Resource("ChartSelected", "#EBF1FF", "#253C60");
-        Resources["SystemAccentColor"] = Color.Parse(dark ? "#79A2FF" : "#3268E8");
-        Background = Brush(dark ? "#111A27" : "#F6F8FC"); Foreground = Palette().Text;
-        _chartCard.Background = _settingsCard.Background = _masthead.Background = _sidebar.Background = Palette().Surface;
+        Resource("ChartSurface", "#FFFEFA", "#11291F"); Resource("ChartText", "#243B30", "#F3ECD8");
+        Resource("ChartBorder", "#DDE5DC", "#2B4538"); Resource("ChartAccent", "#0C432D", "#94C9A5");
+        Resource("ChartPrimary", "#0C432D", "#1D6245"); Resource("ChartPrimaryHover", "#195E40", "#287756");
+        Resource("ChartOnPrimary", "#FFF9EB", "#FFF9EB"); Resource("ChartHover", "#F0F5ED", "#1C392C");
+        Resource("ChartSelected", "#E3EDE2", "#244B37");
+        Resources["SystemAccentColor"] = Color.Parse(dark ? "#94C9A5" : "#0C432D");
+        Background = Brush(dark ? "#0A1813" : "#F3F5EF"); Foreground = Palette().Text;
+        _chartCard.Background = _settingsCard.Background = _sidebar.Background = Palette().Surface;
+        _masthead.Background = Brush("#0C432D");
         _chartCard.BorderBrush = _settingsCard.BorderBrush = _masthead.BorderBrush = _sidebar.BorderBrush = _toolbar.BorderBrush = (IBrush)Resources["ChartBorder"]!;
-        _dataCard.Background = Brush(dark ? "#1E2D41" : "#F5F8FD");
+        _dataCard.Background = Brush(dark ? "#1A3527" : "#F0F4EA");
         _eyebrow.Foreground = _description.Foreground = _status.Foreground = _resultCount.Foreground = Palette().Muted;
         CurrentScene?.ApplyTheme(Palette(), dark); RefreshStatus();
     }
-    private UiPalette Palette() => new(Brush(_dark ? "#182231" : "#FFFFFF"), Brush(_dark ? "#E5EDF8" : "#1F2D43"),
-        Brush(_dark ? "#99ABC1" : "#718097"), Brush(_dark ? "#29384C" : "#EDF1F7"),
-        Brush(_dark ? "#79A2FF" : "#3268E8"), Brush(_dark ? "#253C60" : "#EBF1FF"), Brush(_dark ? "#F7AD69" : "#C97735"));
+    private UiPalette Palette() => new(Brush(_dark ? "#11291F" : "#FFFEFA"), Brush(_dark ? "#F3ECD8" : "#243B30"),
+        Brush(_dark ? "#A1B3A4" : "#63786C"), Brush(_dark ? "#284237" : "#E7EDE2"),
+        Brush(_dark ? "#94C9A5" : "#0C432D"), Brush(_dark ? "#244B37" : "#E3EDE2"), Brush(_dark ? "#DFB786" : "#AB6D35"));
     public void Filter(string text, string? group = null) { _search.Text = text; _group.SelectedItem = group ?? "所有分类"; RefreshNavigation(); }
     private void RefreshNavigation()
     {
@@ -201,7 +203,7 @@ public sealed class GalleryWindow : Window
     {
         if (CurrentScene is not { } scene || scene.IsClosed) return;
         _state.Text = scene.IsPaused ? "已暂停" : scene.ReadViewState?.Invoke() ?? (scene.Tick is null ? "静态数据" : "实时更新");
-        _stateDot.Background = Brush(scene.IsPaused || scene.IsFollowingLatest?.Invoke() == false ? "#E4A34F" : scene.Tick is null ? "#7B94BB" : "#12AC88");
+        _stateDot.Background = Brush(scene.IsPaused || scene.IsFollowingLatest?.Invoke() == false ? "#C49B54" : scene.Tick is null ? "#809482" : "#46976A");
         _status.Text = $"{CurrentExample?.DataNote}  ·  本地合成数据";
         _pause.Content = scene.IsPaused ? "继续更新" : "暂停更新";
         _follow.IsEnabled = scene.IsFollowingLatest?.Invoke() != true || scene.IsPaused;

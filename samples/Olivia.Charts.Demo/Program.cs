@@ -25,8 +25,8 @@ public sealed class ChartsApp : Application
     public static FluentTheme CreateTheme()
     {
         var theme = new FluentTheme();
-        theme.Palettes[ThemeVariant.Light] = new ColorPaletteResources { Accent = Color.Parse("#3268E8") };
-        theme.Palettes[ThemeVariant.Dark] = new ColorPaletteResources { Accent = Color.Parse("#79A2FF") };
+        theme.Palettes[ThemeVariant.Light] = new ColorPaletteResources { Accent = Color.Parse("#0C432D") };
+        theme.Palettes[ThemeVariant.Dark] = new ColorPaletteResources { Accent = Color.Parse("#94C9A5") };
         return theme;
     }
 

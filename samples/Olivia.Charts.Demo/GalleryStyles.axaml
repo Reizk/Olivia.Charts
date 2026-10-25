@@ -33,12 +33,12 @@
     <Setter Property="BorderThickness" Value="2" />
   </Style>
   <Style Selector="Button.action.primary">
-    <Setter Property="Background" Value="{DynamicResource ChartAccent}" />
-    <Setter Property="BorderBrush" Value="{DynamicResource ChartAccent}" />
-    <Setter Property="Foreground" Value="White" />
+    <Setter Property="Background" Value="{DynamicResource ChartPrimary}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ChartPrimary}" />
+    <Setter Property="Foreground" Value="{DynamicResource ChartOnPrimary}" />
   </Style>
   <Style Selector="Button.action.primary:pointerover">
-    <Setter Property="Background" Value="{DynamicResource ChartAccentHover}" />
+    <Setter Property="Background" Value="{DynamicResource ChartPrimaryHover}" />
   </Style>
   <Style Selector="Button.navItem">
     <Setter Property="Background" Value="Transparent" />

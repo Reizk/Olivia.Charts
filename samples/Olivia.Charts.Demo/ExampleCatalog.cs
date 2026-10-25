@@ -319,7 +319,7 @@ public static class ExampleCatalog
             ApplyTheme = (palette, dark) =>
             {
                 chart.Palette = palette; chart.FirstSeriesBrush = palette.Accent;
-                chart.SecondSeriesBrush = new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse(dark ? "#39D4B4" : "#008575"));
+                chart.SecondSeriesBrush = new global::Avalonia.Media.SolidColorBrush(global::Avalonia.Media.Color.Parse(dark ? "#DFC58D" : "#A07932"));
             },
             ReadStatus = () => session.Statistics.Error?.Message ?? chart.Status,
             ReadViewState = () => session.Statistics.IsFollowingLatest ? "实时跟随" : "查看历史 · 采集继续",
